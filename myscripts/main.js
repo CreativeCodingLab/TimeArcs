@@ -100,7 +100,7 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 1980;
+var minYear = 2000;
 var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
@@ -155,16 +155,30 @@ var areaSciVis = d3.svg.area()
         .y0(function(d) { return d.yNode-yScale(d.value)+2*yScale(d.InfoVis)+2*yScale(d.VAST); })
         .y1(function(d) {  return d.yNode -yScale(d.value)+2*yScale(d.InfoVis)+2*yScale(d.VAST)+2*yScale(d.SciVis); });
      
-  
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .style('top', "200px")
+  .style('left', function(d) { return "200px";  })
+  .offset(function(d) {
+    var a =[-10,0];
+    a[0] =-10;
+    a[1] = 0;
+    return a;
+  })
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d + "</span>";
+  })
+svg.call(tip);
+
 var optArray = [];   // FOR search box
 
 var numberInputTerms =0;
 var listYear = [];
 
 
-//d3.tsv("data/pcCombined3.tsv", function(error, data_) {
+d3.tsv("data/pcCombined3.tsv", function(error, data_) {
 //d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
-d3.tsv("data/imdb1.tsv", function(error, data_) {
+//d3.tsv("data/imdb1.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
@@ -1191,9 +1205,9 @@ console.log(d.source.x);
         })
         .style("stroke-width", function (d) {
             return d.value;
-        });   
+        })  ;   
         
-        svg.selectAll(".linkArc")
+         svg.selectAll(".linkArc")
             .on('mouseover', mouseoveredLink)
             .on('mouseout', mouseoutedLink);
 
@@ -1281,7 +1295,7 @@ function searchNode() {
     recompute();
 }
 
-function mouseoveredLink(l) {
+function mouseoveredLink(l) {  
     if (force.alpha()==0) {
         // mouseovered(l.source);
         var term1 = l.source.name;
@@ -1319,6 +1333,11 @@ function mouseoveredLink(l) {
         var x3 = xStep+(x1+x2)/2+Math.abs(y1-y2)/2+10;
         var yGap = 10;
         var totalSize = yGap*listTilte.length;
+
+        var tipData = new Object();
+        tipData.x = x3;
+        tipData.y = (y1+y2)/2;
+        tipData.a = listTilte;
         for (var i=0; i<listTilte.length;i++){
             var y3 = (y1+y2)/2-totalSize/2+(i+0.5)*yGap;
             console.log("listCardId= "+listCardId);
@@ -1338,6 +1357,8 @@ function mouseoveredLink(l) {
                 .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
                 //.style("font-weight", "bold");
         }
+        tip.show(tipData);
+    
         svg.selectAll(".linkArc")
             .style("stroke-opacity", function(l2) {  
                 if (l==l2)
