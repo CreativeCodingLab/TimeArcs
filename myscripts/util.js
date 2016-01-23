@@ -130,6 +130,7 @@ function drawTimeLegend() {
       .attr("y1", function(d){ return 0; })
       .attr("y2", function(d){ return height; });
      svg.append("text")
+      .attr("class", "timeLegend")
       .style("fill", "#000")   
       .style("text-anchor","start")
       .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
@@ -137,7 +138,7 @@ function drawTimeLegend() {
       .attr("y", height-5)
       .attr("dy", ".21em")
       .attr("font-family", "sans-serif")
-      .attr("font-size", "15px")
+      .attr("font-size", "12px")
       .text(function(d) { return i });  
   }
 }  

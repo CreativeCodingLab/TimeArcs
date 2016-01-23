@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 1500 - margin.top - margin.bottom;
+var height = 1300 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -399,7 +399,7 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
             .attr("dy", ".21em")
             .attr("font-family", "sans-serif")
-            .attr("font-size", "12px"); 
+            .attr("font-size", "10px"); 
 
 node2.append("title")
       .text(function(d) { return d.name; });
@@ -877,7 +877,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.25, 1.25])
+            .range([0.25, 0.5])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -932,13 +932,29 @@ node2.append("title")
             .attr("font-family", "sans-serif")
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
-                return d.isSearchTerm ? "12px" : "10px"; });
+                return d.isSearchTerm ? "11px" : "10px"; });
 
 
 
         nodeG.on('mouseover', mouseovered)
                .on("mouseout", mouseouted); 
     
+
+
+
+        // Horizontal lines
+        svg.selectAll(".linePNodes").remove();
+        linePNodes = svg.selectAll(".linePNodes")
+            .data(pNodes).enter().append("line")
+            .attr("class", "linePNodes")
+            .attr("x1", function(d) {return xStep+xScale(d.minY);})
+            .attr("y1", function(d) {return d.y;})
+            .attr("x2", function(d) {return xStep+xScale(d.maxY);})
+            .attr("y2", function(d) {return d.y;})
+            .style("stroke-width",0.2)
+            .style("stroke", "#000"); 
+
+
 
          // This is for linkDistance
         // console.log("gggg**************************"+searchTerm);
@@ -1097,23 +1113,6 @@ function mouseoutedLink(l) {
         })  
     }
 }   
-
-function isNodesConnected(n1,n2) {
-    
-}    
-   
-function getSimilarNodes(n1) {
-    var list = new Object();
-    for (var i=0;i<pNodes.length;i++){
-        var n2 = pNodes[i];
-        if (n2.name == n1.name) continue;
-        for (var j=0;j<pNodes.length;j++){
-            var n3 = pNodes[j];
-            if (n3.name == n1.name || n3.name == n2.name) continue;
-          //  if (relationship[n1.name+"__"+n3.name] )
-        }    
-    }
-}    
 
 
 function mouseovered(d) {
@@ -1362,10 +1361,7 @@ function mouseouted(d) {
                     d.y += (yy-d.y)*0.5;
                 }
             }
-               
-
         });    
-
         //if (document.getElementById("checkbox1").checked){
              linkArcs.style("stroke-width", 0);
             
@@ -1400,46 +1396,12 @@ function mouseouted(d) {
             });
          }   */
          
-         /*
-        svg.selectAll(".layer")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.yearly[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return area(d.yearly); 
-            });
-        
-
-        svg.selectAll(".layerInfoVis")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.InfoVis[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return areaInfoVis(d.yearly); 
-            }); 
-         svg.selectAll(".layerVAST")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.VAST[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return areaVAST(d.yearly); 
-            }); 
-
-        svg.selectAll(".layerSciVis")
-        .attr("d", function(d) { 
-            for (var m=0; m<numYear; m++){
-                d.SciVis[m].yNode = d.y;     // Copy node y coordinate
-            }
-           return areaSciVis(d.yearly); 
-        });        
-        */
-
         linkArcs.attr("d", linkArc);
       //  if (force.alpha()<0.02)
       //     force.stop();
     } 
 
-    function updateTransition(durationTime){
+    function updateTransition(durationTime, timeY){  // timeY is the position of time legend
         nodes.forEach(function(d) {
            d.x=xScale(d.year);
             if (d.parentNode>=0)
@@ -1497,18 +1459,23 @@ function mouseouted(d) {
            return "translate(" +d.xConnected + "," + d.y + ")"
         })
         
-        svg.selectAll(".linePNodes").remove();
-        linePNodes = svg.selectAll(".linePNodes")
-            .data(pNodes).enter().append("line")
-            .attr("class", "linePNodes")
+        svg.selectAll(".linePNodes").transition().duration(durationTime)
             .attr("x1", function(d) {return xStep+xScale(d.minY);})
             .attr("y1", function(d) {return d.y;})
             .attr("x2", function(d) {return xStep+xScale(d.maxY);})
-            .attr("y2", function(d) {return d.y;})
-            .style("stroke-width",0.2)
-            .style("stroke", "#000");       
-        
+            .attr("y2", function(d) {return d.y;}); 
 
+        svg.selectAll(".timeLegend").transition().duration(durationTime)
+            .attr("y", timeY)
+        
+        if (document.getElementById("checkbox1").checked){
+            svg.selectAll(".nodeText")
+                .text(function(d) { return d.name+"__" }) ;          
+            
+        }
+        else{
+
+        }
         svg.selectAll(".layer").transition().duration(durationTime)
           .attr("d", function(d) { 
             for (var m=numYear-1; m>=0; m--){
@@ -1572,14 +1539,94 @@ function mouseouted(d) {
           return 0;
         });  
 
-        var step = Math.min(height/(numNode+2),12.5);
+        var step = Math.min(height/(numNode+2),11);
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
         }
         force.stop();
 
-        updateTransition(2000);
+        updateTransition(2000, height-4);
+    }
+
+function groupSimilarNodes(){
+    if (document.getElementById("checkbox1").checked){
+        console.log("****** groupSimilarNodes *******");
+        for (var i=0;i<pNodes.length;i++){
+            pNodes[i].isProcessed = false;
+        }
+        // compute the list of similar nodes for each node
+        var array = [];
+        for (var i=0;i<pNodes.length;i++){
+            var n1 = pNodes[i];
+            if (!n1.isProcessed){
+                //console.log("****** i="+i);
+                n1.listOfSimilar = getSimilarNodes(n1);
+                for (var j=0;j<n1.listOfSimilar.length;j++){
+                    var n2 = n1.listOfSimilar[j];
+                    n2.isProcessed = true;
+                }   
+                n1.isProcessed = true; 
+
+                // Construct the list of leader
+                array.push(n1);               
+            }
+        }  
+
+        array.sort(function (a, b) {
+            if (a.y > b.y) {
+                return 1;
+            }
+            if (a.y < b.y) {
+                return -1;
+            }
+            return 0;
+        });  
+
+        // asign the Y position
+        var step = Math.min(height/(array.length+2),11);
+        var currentY = 0;
+        for (var i=0;i<array.length;i++){
+            var n1 = array[i];
+            n1.y = currentY+step;
+            for (var j=0;j<n1.listOfSimilar.length;j++){
+                var n2 = n1.listOfSimilar[j];
+                n2.y = n1.y+j+1;
+            } 
+            currentY = n1.y+ n1.listOfSimilar.length;     
+        }  
+        updateTransition(2000,currentY+12);            
+    }  
+    else{
+        detactTimeSeries();
+    }
 }
 
+function isNodesConnected(n1,n2) {
+    if (relationship[n1.name+"__"+n2.name]!=undefined || relationship[n2.name+"__"+n1.name]!=undefined)
+        return true;
+    return false;
+}
+function isNodesSimilar(n1,n2) {
+    for (var j=0;j<pNodes.length;j++){
+        var n3 = pNodes[j];
+        if (n3.name == n1.name || n3.name == n2.name) continue;
+        if (isNodesConnected(n3,n1) && !isNodesConnected(n3,n2))
+            return false;
+        if (!isNodesConnected(n3,n1) && isNodesConnected(n3,n2))
+            return false;
+    }    
+    return true;
+}    
+
+function getSimilarNodes(n1) {
+    var list = [];
+    for (var i=0;i<pNodes.length;i++){
+        var n2 = pNodes[i];
+        if (n2.name == n1.name) continue;
+        if (isNodesSimilar(n1,n2))
+            list.push(n2);
+    }
+    return list;
+}    
 
