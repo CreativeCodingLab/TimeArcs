@@ -401,207 +401,6 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
             .attr("font-family", "sans-serif")
             .attr("font-size", "12px"); 
 
-
-  
-/*
-var link3 = svg3.selectAll(".link3")
-      .data(links2)
-    .enter().append("line")
-      .attr("class", "link3")
-      .style("stroke","#bbb")
-      .style("stroke-width", function(d) { 
-        if (!d[20])  return 0;
-        return 0.5+linkScale(d[20]); });
-
-  var link4 = svg4.selectAll(".link4")
-      .data(links2)
-    .enter().append("line")
-      .attr("class", "link4")
-      .style("stroke","#bbb")
-      .style("stroke-width", function(d) { if (!d[21])  return 0;
-        return 0.5+linkScale(d[21]); });
-
-      var link5 = svg5.selectAll(".link4")
-        .data(links2)
-   .enter().append("line")
-      .attr("class", "link4")
-      .style("stroke","#bbb")
-      .style("stroke-width", function(d) { if (!d[22])  return 0;
-        return 0.5+linkScale(d[22]); });
-      var link6 = svg6.selectAll(".link6")
-       .data(links2)
-    .enter().append("line")
-      .attr("class", "link6")
-      .style("stroke","#bbb")
-      .style("stroke-width", function(d) { if (!d[23])  return 0;
-        return 0.5+linkScale(d[23]); });
-
-      var link7 = svg7.selectAll(".link7")
-       .data(links2)
-    .enter().append("line")
-      .attr("class", "link7")
-      .style("stroke","#bbb")
-      .style("stroke-width", function(d) { if (!d[24])  return 0;
-        return 0.5+linkScale(d[24]); });*/
-
-
-/*
-  var node3 = svg3.selectAll(".nodeText3")
-    .data(nodes2)
-    .enter().append("text")
-      .attr("class", ".nodeText3")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("fill-opacity",function(d) { 
-                if (list5[20][d.name])
-                    return 1;
-                return 0.2})
-            
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px"); 
-
-     var node4 = svg4.selectAll(".nodeText4")
-    .data(nodes2)
-    .enter().append("text")
-      .attr("class", ".nodeText4")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("fill-opacity",function(d) { 
-                if (list5[21][d.name])
-                    return 1;
-                return 0.2})
-            
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px"); 
-            
-
-            var node5 = svg5.selectAll(".nodeText5")
-    .data(nodes2)
-    .enter().append("text")
-      .attr("class", ".nodeText5")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("fill-opacity",function(d) { 
-                if (list5[22][d.name])
-                    return 1;
-                return 0.2})
-            
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px"); 
-
-            var node6 = svg6.selectAll(".nodeText6")
-    .data(nodes2)
-    .enter().append("text")
-      .attr("class", ".nodeText6")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("fill-opacity",function(d) { 
-                if (list5[23][d.name])
-                    return 1;
-                return 0.2})
-            
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px"); 
-
-            var node7 = svg7.selectAll(".nodeText7")
-    .data(nodes2)
-    .enter().append("text")
-      .attr("class", ".nodeText7")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("fill-opacity",function(d) { 
-                if (list5[24][d.name])
-                    return 1;
-                return 0.2})
-            
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px");  
-*/
-
-         /*     
-      svg3.append("text")
-        .attr("class", "nodeLegend")
-        .attr("x", width/2)
-        .attr("y", height-100-60)
-        .text("2010")
-        .attr("dy", ".21em")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "25px")
-        .style("text-anchor", "middle")
-        .style("fill", "#00a");
-
-        svg4.append("text")
-        .attr("class", "nodeLegend")
-        .attr("x", width/2)
-        .attr("y", height-100-60)
-        .text("2011")
-        .attr("dy", ".21em")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "25px")
-        .style("text-anchor", "middle")
-        .style("fill", "#00a");
-
-        svg5.append("text")
-        .attr("class", "nodeLegend")
-        .attr("x", width/2)
-        .attr("y", height-100-60)
-        .text("2012")
-        .attr("dy", ".21em")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "25px")
-        .style("text-anchor", "middle")
-        .style("fill", "#00a");
-
-        svg6.append("text")
-        .attr("class", "nodeLegend")
-        .attr("x", width/2)
-        .attr("y", height-100-60)
-        .text("2013")
-        .attr("dy", ".21em")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "25px")
-        .style("text-anchor", "middle")
-        .style("fill", "#00a");
-
-        svg7.append("text")
-        .attr("class", "nodeLegend")
-        .attr("x", width/2)
-        .attr("y", height-100-60)
-        .text("2014")
-        .attr("dy", ".21em")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "25px")
-        .style("text-anchor", "middle")
-        .style("fill", "#00a");*/
-   
-
-
-
 node2.append("title")
       .text(function(d) { return d.name; });
 
@@ -611,53 +410,8 @@ node2.append("title")
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-/*
-    link3.attr("x1", function(d) { 
-console.log(d.source.x);
-        return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });  
-
-         link4.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });  
-
-
-         link5.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });  
-
-
-         link6.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });  
-
-
-         link7.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });    */
-
     node2.attr("x", function(d) { return d.x; })
         .attr("y", function(d) { return d.y; });
-
-/*
-     node3.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });   
-
-         node4.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });   
-         node5.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });   
-         node6.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });   
-         node7.attr("x", function(d) { return d.x; })
-        .attr("y", function(d) { return d.y; });   */
-
   });
 
 
@@ -1028,58 +782,6 @@ console.log(d.source.x);
         }
        // drawStreamTerm(svg, pNodes, 100, 600);
 
-        
-
-        /*
-        svg.selectAll(".layerInfoVis").remove();
-        svg.selectAll(".layerInfoVis")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerInfoVis")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            //.style("stroke","#eeeeee")
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("InfoVis", d.max); 
-        }); 
-
-        svg.selectAll(".layerVAST").remove();
-        svg.selectAll(".layerVAST")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerVAST")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("VAST", d.max);
-        });    
-        
-        svg.selectAll(".layerSciVis").remove();
-        svg.selectAll(".layerSciVis")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerSciVis")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("SciVis", d.max);
-
-        });  
-
-        svg.selectAll(".layer").remove();
-        svg.selectAll(".layer")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layer")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#aaa"; })
-            .style("stroke-width",0.5)
-            .style("stroke-opacity",function(d) { return d.isSearchTerm ? 0.5 : 0; })
-            .style("fill-opacity",0);
-        */
-
     }    
 
     function computeLinks() {
@@ -1357,7 +1059,7 @@ function mouseoveredLink(l) {
                 .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
                 //.style("font-weight", "bold");
         }
-        tip.show(tipData);
+       // tip.show(tipData);
     
         svg.selectAll(".linkArc")
             .style("stroke-opacity", function(l2) {  
@@ -1395,12 +1097,26 @@ function mouseoutedLink(l) {
         })  
     }
 }   
+
+function isNodesConnected(n1,n2) {
+    
+}    
    
+function getSimilarNodes(n1) {
+    var list = new Object();
+    for (var i=0;i<pNodes.length;i++){
+        var n2 = pNodes[i];
+        if (n2.name == n1.name) continue;
+        for (var j=0;j<pNodes.length;j++){
+            var n3 = pNodes[j];
+            if (n3.name == n1.name || n3.name == n2.name) continue;
+          //  if (relationship[n1.name+"__"+n3.name] )
+        }    
+    }
+}    
+
 
 function mouseovered(d) {
-    if (force.alpha()==0) {
-        console.log ("force.alpha="+force.alpha());
-        
         var list = new Object();
         list[d.name] = new Object();
 
@@ -1442,10 +1158,81 @@ function mouseovered(d) {
                   return 0.01;  
          });
         svg.selectAll(".linePNodes")
-            .style("stroke-opacity" , function(d2) {  
-                if (d2.name==d.name){
+            .style("stroke-opacity" , function(n) {  
+                if (list[n.name])
                    return 1;
+                return 0.01;  
+         });
+
+
+        nodeG.style("fill-opacity" , function(n) {  
+            if (list[n.name])
+                return 1;
+            else
+              return 0.1;  
+            })
+            .style("font-weight", function(n) { return d.name==n.name ? "bold" : ""; })  
+        ;
+
+        nodeG.transition().duration(500).attr("transform", function(n) {
+            if (list[n.name] && n.name!=d.name){
+                var newX =xStep+xScale(list[n.name].year);
+                return "translate(" + newX + "," + n.y + ")"
+            }
+            else{
+                return "translate(" + n.xConnected + "," + n.y + ")"
+            }
+        })
+}    
+
+/*
+function mouseovered(d) {
+    if (force.alpha()==0) {
+        console.log ("force.alpha="+force.alpha()); 
+        var list = new Object();
+        list[d.name] = new Object();
+
+        svg.selectAll(".linkArc")
+            .style("stroke-opacity" , function(l) {  
+                if (l.source.name==d.name){
+                    if (!list[l.target.name]){
+                        list[l.target.name] = new Object();
+                        list[l.target.name].count=1; 
+                        list[l.target.name].year=l.m;  
+                        list[l.target.name].linkcount=l.count;    
+                    }    
+                    else{
+                        list[l.target.name].count++; 
+                        if (l.count>list[l.target.name].linkcount){
+                            list[l.target.name].linkcount = l.count;
+                            list[l.target.name].year=l.m;  
+                        }
+                    }    
+                    return 1;
                 }  
+                else if (l.target.name==d.name){
+                    if (!list[l.source.name]){
+                        list[l.source.name] = new Object();
+                        list[l.source.name].count=1; 
+                        list[l.source.name].year=l.m;  
+                        list[l.source.name].linkcount=l.count;  
+                    }    
+                    else{
+                        list[l.source.name].count++; 
+                        if (l.count>list[l.source.name].linkcount){
+                            list[l.source.name].linkcount = l.count;
+                            list[l.source.name].year=l.m;  
+                        } 
+                    }    
+                    return 1;
+                }    
+                else
+                  return 0.01;  
+         });
+        svg.selectAll(".linePNodes")
+            .style("stroke-opacity" , function(n) {  
+                if (list[n.name])
+                   return 1;
                 return 0.01;  
          });
 
@@ -1491,7 +1278,9 @@ function mouseovered(d) {
                   return 0.1;  
             });   
     }                 
-}
+}*/
+
+
 function mouseouted(d) {
     if (force.alpha()==0) {
         nodeG.style("fill-opacity" , 1);
