@@ -390,7 +390,7 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
   var node2 = svg2.selectAll(".nodeText2")
     .data(nodes2)
     .enter().append("text")
-      .attr("class", ".nodeText2")  
+      .attr("class", "nodeText2")  
             .text(function(d) { return d.name })           
             .attr("dy", ".35em")
             .style("fill","#000")
@@ -919,16 +919,14 @@ node2.append("title")
             .data(pNodes).enter().append("g")
             .attr("class", "nodeG")
          
-        svg.selectAll(".nodeText").remove();
         nodeG.append("text")
-            .attr("class", ".nodeText")  
+            .attr("class", "nodeText")  
             .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
+            .attr("dy", "3px")
             .style("fill","#000000")
             .style("text-anchor","end")
             .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
             .attr("font-family", "sans-serif")
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
@@ -1455,7 +1453,6 @@ function mouseouted(d) {
             d.minY = minY;
             d.maxY = maxY;
             d.xConnected = xStep+xScale(minY);
-           //console.log(d.textSize+" "+xScale());
            return "translate(" +d.xConnected + "," + d.y + ")"
         })
         
@@ -1469,13 +1466,24 @@ function mouseouted(d) {
             .attr("y", timeY)
         
         if (document.getElementById("checkbox1").checked){
-            svg.selectAll(".nodeText")
-                .text(function(d) { return d.name+"__" }) ;          
-            
+           svg.selectAll(".nodeText").transition().duration(durationTime)
+                .text(function(d) { 
+                    if (d.groupName)
+                        return d.groupName;
+                    else 
+                        return "";
+                }) 
+                .attr("dy", function(d) { 
+                    if (d.listOfSimilar)
+                        return (3+d.listOfSimilar.length/2)+"px";
+                });               
         }
-        else{
-
+        else{ 
+             svg.selectAll(".nodeText").transition().duration(durationTime)
+                .text(function(d) { return d.name; })
+                .attr("dy", "3px");      
         }
+        
         svg.selectAll(".layer").transition().duration(durationTime)
           .attr("d", function(d) { 
             for (var m=numYear-1; m>=0; m--){
@@ -1589,6 +1597,11 @@ function groupSimilarNodes(){
         for (var i=0;i<array.length;i++){
             var n1 = array[i];
             n1.y = currentY+step;
+            // group name
+            n1.groupName = n1.name;
+            if (n1.listOfSimilar.length>0){   
+                n1.groupName += "("+(n1.listOfSimilar.length+1)+")";    
+            }
             for (var j=0;j<n1.listOfSimilar.length;j++){
                 var n2 = n1.listOfSimilar[j];
                 n2.y = n1.y+j+1;
