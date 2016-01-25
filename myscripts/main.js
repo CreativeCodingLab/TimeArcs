@@ -176,10 +176,17 @@ var numberInputTerms =0;
 var listYear = [];
 
 
-d3.tsv("data/pcCombined3.tsv", function(error, data_) {
+
+
+
+
+d3.tsv("data/pc2016.tsv", function(error, data_) {
+//d3.tsv("data/pcCombined3.tsv", function(error, data_) {
 //d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
 //d3.tsv("data/imdb1.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
+
+
     if (error) throw error;
     data = data_;
     
