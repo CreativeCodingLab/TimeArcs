@@ -180,7 +180,7 @@ var listYear = [];
 
 
 
-d3.tsv("data/pc2016.tsv", function(error, data_) {
+d3.tsv("data/FriesCards.tsv", function(error, data_) {
 //d3.tsv("data/pcCombined3.tsv", function(error, data_) {
 //d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
 //d3.tsv("data/imdb1.tsv", function(error, data_) {
@@ -487,7 +487,6 @@ node2.append("title")
     function readTermsAndRelationships() {
         data2 = data.filter(function (d, i) {
            // if (d.year<20) return; 
-        
             if (!searchTerm || searchTerm=="" ) {
                 return d;
             }
@@ -495,7 +494,7 @@ node2.append("title")
                 return d;
         });
 
-
+        console.log("data2="+data2.length);
         var selected  ={}
         if (searchTerm && searchTerm!=""){
             data2.forEach(function(d) {
@@ -669,9 +668,10 @@ node2.append("title")
 
     function computeNodes() {
         numNode0 = Math.min(200, termArray.length);
-        computeConnectivity(termArray, numNode0);
         console.log("termArray="+termArray.length);
+        computeConnectivity(termArray, numNode0);
         
+        /*
         termArray.sort(function (a, b) {
          /*if (a.isConnected < b.isConnected) {
             return 1;
@@ -679,7 +679,7 @@ node2.append("title")
           else if (a.isConnected > b.isConnected) {
             return -1;
           }
-          else{*/
+          else{
                 if (a.max < b.max) {
                     return 1;
                 }
@@ -689,7 +689,7 @@ node2.append("title")
                 else 
                 return 0;
            // }
-        });   
+        });   */
       
         numNode = Math.min(200, termArray.length);
         computeConnectivity(termArray, numNode);
@@ -1010,9 +1010,11 @@ $('#btnUpload').click(function() {
 });
 
 function searchNode() {
+
     svg.selectAll(".linePNodes").remove();
         
     searchTerm = document.getElementById('search').value;
+    console.log("searchTerm="+searchTerm);
     valueSlider =1;
     handle.attr("cx", xScaleSlider(valueSlider));
     recompute();
@@ -1026,6 +1028,7 @@ function mouseoveredLink(l) {
 
         var listCardId = [];
         var listTilte = [];
+        var listEvidence = [];
         var listType = [];
         var listBoth = {};
         data2.forEach(function(d) { 
@@ -1039,6 +1042,7 @@ function mouseoveredLink(l) {
                                 if (!listBoth[d.Title.substring(0,10)+"**"+d.Conference]){
                                     listCardId.push(d["CardId"]);
                                     listTilte.push(d.Title);
+                                    listEvidence.push(d.Evidence);
                                     listType.push(d.Conference);
                                     listBoth[d.Title.substring(0,10)+"**"+d.Conference] =1;
                                 }
@@ -1054,7 +1058,7 @@ function mouseoveredLink(l) {
         var y1 = l.source.y;
         var y2 = l.target.y;
         var x3 = xStep+(x1+x2)/2+Math.abs(y1-y2)/2+10;
-        var yGap = 10;
+        var yGap = 22;
         var totalSize = yGap*listTilte.length;
 
         var tipData = new Object();
@@ -1063,12 +1067,11 @@ function mouseoveredLink(l) {
         tipData.a = listTilte;
         for (var i=0; i<listTilte.length;i++){
             var y3 = (y1+y2)/2-totalSize/2+(i+0.5)*yGap;
-            console.log("listCardId= "+listCardId);
             svg.append("text")
                 .attr("class", "linkTilte")
                 .attr("x", x3)
                 .attr("y", y3)
-                .text(listTilte[i])
+                .text("Title: "+listTilte[i])
                 .attr("dy", ".21em")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "11px")
@@ -1078,6 +1081,21 @@ function mouseoveredLink(l) {
                     return getColor(listType[i], 0); 
                  })
                 .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
+            svg.append("text")
+                .attr("class", "linkTilte")
+                .attr("x", x3+26)
+                .attr("y", y3+10)
+                .text("Evidence: "+listEvidence[i])
+                .attr("dy", ".21em")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "11px")
+                .style("text-anchor", "left")
+                //.style("fill", "#000000")
+                .style("fill", function(d) { 
+                    return getColor(listType[i], 0); 
+                 })
+                .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
+                        
                 //.style("font-weight", "bold");
         }
        // tip.show(tipData);
@@ -1350,7 +1368,7 @@ function mouseouted(d) {
             //if (searchTerm!="")
             //    d.x += (width/2-d.x)*0.02;
             //else
-                d.x += (width/2-d.x)*0.02;
+                d.x += (width/2-d.x)*0.01;
                      
             if  (d.parentNode>=0){
                 d.y += (nodes[d.parentNode].y- d.y)*0.2;
@@ -1399,7 +1417,7 @@ function mouseouted(d) {
             linkArcs.style("stroke-width", function (d) {
                 return d.value;
             });
-         }   */
+         }   */ 
          
         linkArcs.attr("d", linkArc);
       //  if (force.alpha()<0.02)

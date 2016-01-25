@@ -23,7 +23,8 @@ function drawColorLegend() {
         .attr("class", "nodeLegend")
         .attr("x", xx+10)
         .attr("y", y1+2)
-        .text("adds_modification")
+        .text("increases_activity")
+       // .text("adds_modification")
        // .text("InfoVis")
        //.text("Comedy")
         .attr("dy", ".21em")
@@ -43,7 +44,8 @@ function drawColorLegend() {
         .attr("class", "nodeLegend")
         .attr("x", xx+10)
         .attr("y", y2+2)
-        .text("removes_modification")
+        .text("decreases_activity")
+        //.text("removes_modification")
         //.text("VAST")
         //.text("Action")
         .attr("dy", ".21em")
@@ -149,9 +151,9 @@ function getColor(category, count) {
   var percent = count/(termMaxMax3);
   var sat = minSat+Math.round(percent*(maxSat-minSat));
   //console.log(category+" "+count+" termMaxMax3="+termMaxMax3+" sat="+sat);
-  if (category=="InfoVis" || category=="Comedy" || category=="adds_modification")
-    return "rgb("+sat+", "+230+", "+sat+")" ; // leaf node
-  else if (category=="VAST" || category=="Action" || category=="removes_modification")
+  if (category=="InfoVis" || category=="Comedy" || category=="adds_modification" || category=="increases_activity")
+    return "rgb("+sat+", "+200+", "+sat+")" ; // leaf node
+  else if (category=="VAST" || category=="Action" || category=="removes_modification" || category=="decreases_activity")
     return "rgb("+230+", "+sat+", "+sat+")" ; // leaf node
   else if (category=="SciVis" || category=="Drama"|| category=="translocation")
     return "rgb("+sat+", "+sat+", "+230+")" ; // leaf node
@@ -160,7 +162,6 @@ function getColor(category, count) {
   else if (category=="increases")
     return "rgb("+255+", "+0+", "+255+")" ; // leaf node
   else{
-    console.log(category);
     return "#000000";    
   }
    
