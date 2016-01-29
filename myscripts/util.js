@@ -164,8 +164,6 @@ function getColor(category, count) {
   else{
     return "#000000";    
   }
-   
-
 }
 
 function colorFaded(d) {

@@ -1095,7 +1095,6 @@ function mouseoveredLink(l) {
                     return getColor(listType[i], 0); 
                  })
                 .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
-                        
                 //.style("font-weight", "bold");
         }
        // tip.show(tipData);
