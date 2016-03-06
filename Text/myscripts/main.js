@@ -737,9 +737,8 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
               .data(pNodes)
               .enter().append("path")
               .attr("class", "layer")
-              .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-              //.style("stroke","#eeeeee")
-              .style("stroke-width",0.5)
+              .style("stroke", function(d) { return d.isSearchTerm ? "#000" : "#000"; })
+              .style("stroke-width",0.05)
               .style("stroke-opacity",0.5)
               .style("fill-opacity",1)
               .style("fill", function(d, i) { 
@@ -1010,6 +1009,12 @@ function mouseovered(d) {
                     return 1;
                 else
                   return 0.1;  
+            })
+            .style("stroke-opacity" , function(n) {  
+                if (list[n.name])
+                    return 1;
+                else
+                  return 0;  
             });
 
     }                 
@@ -1018,7 +1023,8 @@ function mouseouted(d) {
     if (force.alpha()==0) {
         nodeG.style("fill-opacity" , 1);
         svg.selectAll(".layer")
-            .style("fill-opacity" ,1);
+            .style("fill-opacity" ,1)
+            .style("stroke-opacity" , 0.5);
         svg.selectAll(".linkArc")
             .style("stroke-opacity" , 1);    
 
@@ -1033,13 +1039,9 @@ function mouseouted(d) {
 function searchNode() {
     searchTerm = document.getElementById('search').value;
     valueSlider =2;
-    handle.attr("cx", xScaleSlider(valueSlider));
-            
+    handle.attr("cx", xScaleSlider(valueSlider));   
     
     recompute();
-     
-    
-
 }
 
    
@@ -1084,7 +1086,7 @@ function searchNode() {
             //    d.x += (xScale(d.month)-d.x)*0.1;
             //else
             //     d.x += (xScale(d.month)-d.x)*0.005;
-             d.x += (width/2-d.x)*0.02;
+             d.x += (width/2-d.x)*0.01;
            
 
 
@@ -1173,9 +1175,7 @@ function searchNode() {
                 //    console.log(d.name+" d.step="+d.step);    
                     d.step=-5000;
                 }
-            });
-             console.log(" d.step="+d.step);    
-                   
+            });       
             return "translate(" + (d.x+d.step) + "," + d.y + ")";
         });
 
