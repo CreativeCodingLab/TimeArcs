@@ -433,7 +433,6 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
                 return d;
         });
 
-
         var selected  ={}
         if (searchTerm && searchTerm!=""){
             data2.forEach(function(d) {
@@ -450,7 +449,6 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             } );
         }
 
-
         var removeList = {};   // remove list **************
         removeList["russia"] =1;
         removeList["china"] =1;
@@ -460,6 +458,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         removeList["mitt romney"] =1;
         removeList["hillary clinton"] =1; 
         removeList["paul ryan"] =1;
+        removeList["sarah palin"] =1;
         
         
         removeList["source"] =1;
@@ -998,46 +997,27 @@ function mouseovered(d) {
        nodeG.transition().duration(500).attr("transform", function(n) {
             if (list[n.name] && n.name!=d.name){
                 var newX =xStep+xScale(list[n.name].year);
-                console.log("newX="+newX);
                 return "translate(" + newX + "," + n.y + ")"
             }
             else{
-                console.log("n.xConnected="+n.xConnected);
                 return "translate(" + n.xConnected + "," + n.y + ")"
             }
         })
 
-        svg.selectAll(".layerInfoVis")
+         svg.selectAll(".layer")
             .style("fill-opacity" , function(n) {  
                 if (list[n.name])
                     return 1;
                 else
                   return 0.1;  
             });
-        svg.selectAll(".layerVAST")
-            .style("fill-opacity" , function(n) {  
-                if (list[n.name])
-                    return 1;
-                else
-                  return 0.1;  
-            });
-        svg.selectAll(".layerSciVis")
-            .style("fill-opacity" , function(n) {  
-                if (list[n.name])
-                    return 1;
-                else
-                  return 0.1;  
-            });   
+
     }                 
 }
 function mouseouted(d) {
     if (force.alpha()==0) {
         nodeG.style("fill-opacity" , 1);
-        svg.selectAll(".layerInfoVis")
-            .style("fill-opacity" ,1);
-        svg.selectAll(".layerVAST")
-            .style("fill-opacity" ,1);
-        svg.selectAll(".layerSciVis")
+        svg.selectAll(".layer")
             .style("fill-opacity" ,1);
         svg.selectAll(".linkArc")
             .style("stroke-opacity" , 1);    

@@ -105,9 +105,10 @@ function drawTimeLegend() {
   for (var i=minYear; i<maxYear;i++){
     var xx = xStep+xScale((i-minYear)*12);
     svg.append("line")
-      .style("stroke", "#000000")
-      .style("stroke-opacity", 0.5)
-      .style("stroke-width", 0.1)
+      .style("stroke", "#00a")
+      .style("stroke-dasharray", ("1, 2"))
+      .style("stroke-opacity", 1)
+      .style("stroke-width", 0.2)
       .attr("x1", function(d){ return xx; })
       .attr("x2", function(d){ return xx; })
       .attr("y1", function(d){ return 0; })
@@ -234,17 +235,7 @@ function tick(event) {
 
 // Toggle children on click.
 function click(d) {
-/*  if (d3.event.defaultPrevented) return; // ignore drag
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  console.log("Clicking on = "+d.name+ " d.depth = "+d.depth);
-  
- update();*/
+
 }
 
 /*

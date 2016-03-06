@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 1300 - margin.top - margin.bottom;
+var height = 1700 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -13,30 +13,8 @@ var svg = d3.select("body").append("svg")
 var svg2 = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", 0);
-/*
-var svg3 = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height-100);
-
- var svg4 = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height-100);
-
-var svg5 = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height-100);
-
-
-var svg6 = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height-100);
-
-var svg7 = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height-100);       */        
 
 var topTermMode = 0;
-//******************* Forced-directed layout    
 
 //Set up the force layout
 var force = d3.layout.force()
@@ -60,16 +38,6 @@ var force2 = d3.layout.force()
     .gravity(0.08)
     .alpha(0.12)
     .size([width, height]);    
-
-//---Insert-------
-
-// 1. remove nodes not connected
-// 2. update the link strenghth
-// 3. Update getColor in Util
-// 4. Update text position on brushing    
-// 5. Update yScale
-// 6. Update xStep
-// 7. Update text position to improve readability
 
 var node_drag = d3.behavior.drag()
         .on("dragstart", dragstart)
@@ -180,8 +148,8 @@ var listYear = [];
 
 
 
-d3.tsv("data/FriesCards.tsv", function(error, data_) {
-//d3.tsv("data/pcCombined3.tsv", function(error, data_) {
+//d3.tsv("data/FriesCards.tsv", function(error, data_) {
+d3.tsv("data/pcCombined3.tsv", function(error, data_) {
 //d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
 //d3.tsv("data/imdb1.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
