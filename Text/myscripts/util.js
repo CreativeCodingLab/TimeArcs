@@ -102,28 +102,81 @@ function removeColorLegend() {
 }
 
 function drawTimeLegend() {
+  var listX=[];
   for (var i=minYear; i<maxYear;i++){
-    var xx = xStep+xScale((i-minYear)*12);
-    svg.append("line")
+    for (var j=0; j<12;j++){
+      var xx = xStep+xScale((i-minYear)*12+j);
+      var obj = {};
+      obj.x = xx;
+      obj.year = i;
+      listX.push(obj);
+    }  
+  }
+
+  svg.selectAll(".timeLegendLine").data(listX)
+    .enter().append("line")
+      .attr("class", "timeLegendLine")
       .style("stroke", "#00a")
       .style("stroke-dasharray", ("1, 2"))
       .style("stroke-opacity", 1)
       .style("stroke-width", 0.2)
-      .attr("x1", function(d){ return xx; })
-      .attr("x2", function(d){ return xx; })
+      .attr("x1", function(d){ console.log("xx2="+xx); return d.x; })
+      .attr("x2", function(d){ return d.x; })
       .attr("y1", function(d){ return 0; })
       .attr("y2", function(d){ return height; });
-     svg.append("text")
+  svg.selectAll(".timeLegendText").data(listX)
+    .enter().append("text")
+      .attr("class", "timeLegendText")
       .style("fill", "#000000")   
       .style("text-anchor","start")
       .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-      .attr("x", xx)
-      .attr("y", height-4)
+      .attr("x", function(d){ return d.x; })
+      .attr("y", height-6)
       .attr("dy", ".21em")
       .attr("font-family", "sans-serif")
       .attr("font-size", "12px")
-      .text(function(d) { return i });  
+      .text(function(d) { return d.year });  
+}
+
+function updateTimeLegend() {
+  var listX=[];
+  for (var i=minYear; i<maxYear;i++){
+    for (var j=0; j<12;j++){
+      var xx = xStep+xScale((i-minYear)*12+j);
+      var obj = {};
+      obj.x = xx;
+      obj.year = i;
+      listX.push(obj);
+    }  
   }
+
+  svg.selectAll(".timeLegendLine").data(listX).transition().duration(250)
+      .attr("x1", function(d){ console.log("xx2="+d.x); return d.x; })
+      .attr("x2", function(d){ return d.x; });
+  svg.selectAll(".timeLegendText").data(listX).transition().duration(250)
+      .attr("x", function(d){ return d.x; });  
+
+
+}
+
+function drawTimeBox(){  
+  svg.append("rect")
+    .style("fill", "#aaa")
+    .style("fill-opacity", 0.2)
+    .attr("x", xStep)
+    .attr("y", height-16)
+    .attr("width", XGAP_*numMonth)
+    .attr("height", 17)
+    .on("mouseout", function(){
+      isLensing = false;
+      coordinate = d3.mouse(this);
+      updateTransition(250);
+    })
+    .on("mousemove", function(){
+      isLensing = true;
+      coordinate = d3.mouse(this);
+      updateTransition(250);
+    });
 }  
 
 

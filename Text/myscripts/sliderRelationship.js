@@ -6,15 +6,13 @@ var handle;
 var xScaleSlider;
 var xSlider = 3;
 var ySlider = 125;
-var valueSlider = 10;
+var valueSlider = 12;
 var valueMax = 30;
 function setupSliderScale(svg) {
   xScaleSlider = d3.scale.linear()
     .domain([0, valueMax])
-    .range([xSlider, 120])
-    ;
+    .range([xSlider, 120]);
 
-  //valueSlider = relationshipMaxMax2*0.1;
   brush = d3.svg.brush()
     .x(xScaleSlider)
     .extent([valueSlider, valueSlider])

@@ -18,18 +18,18 @@ var topTermMode = 0;
 
 //Set up the force layout
 var force = d3.layout.force()
-    .charge(-100)
+    .charge(-12)
     //.linkStrength(5)
     .linkDistance(0)
-    .gravity(0.02)
-    .friction(0.95)
-    .alpha(0.1)
+    .gravity(0.01)
+    //.friction(0.95)
+    .alpha(0.05)
     .size([width, height]);
 
  var force2 = d3.layout.force()
     .charge(-180)
-    .linkDistance(90)
-    .gravity(0.2)
+    .linkDistance(70)
+    .gravity(0.15)
     .alpha(0.1)
     .size([width, height]);     
 
@@ -86,10 +86,45 @@ var termMaxMax, termMaxMax2;
 var terms;
 var NodeG; 
 var xStep =120;
-var xScale = d3.time.scale().range([0, (width-xStep-100)/numMonth]);
+//var xScale = d3.time.scale().range([0, (width-xStep-100)/numMonth]);
 var yScale;
 var linkScale;
 var searchTerm ="";
+
+var nodeY_byName = {};
+
+var isLensing = false;
+var lensingMul = 5;
+var coordinate = [0,0];
+
+var XGAP_ = 9; // gap between months on xAxis
+
+function xScale(m){
+    if (isLensing){
+        var numLens = 5;
+        
+        var lMonth = Math.floor((coordinate[0]-xStep)/XGAP_);
+        var maxM = Math.max(0, lMonth-numLens-1);
+        var numMonthInLense = (lMonth+numLens-maxM+1);
+        //compute the new xGap
+
+        var total= numMonth+numMonthInLense*(lensingMul-1);
+        var xGap = (XGAP_*numMonth)/total;
+        
+        if (m<lMonth-numLens)
+            return m*xGap;
+        else if (m>lMonth+numLens){
+            return maxM*xGap+ numMonthInLense*xGap*lensingMul + (m-(lMonth+numLens+1))*xGap;
+        }   
+        else{
+            return maxM*xGap+(m-maxM)*xGap*lensingMul;
+        }  
+    }
+    else{
+       return m*XGAP_; 
+    }           
+}
+
 
 var area = d3.svg.area()
         .interpolate("cardinal")
@@ -108,8 +143,8 @@ var listMonth;
 var nodes2List = {};
 var links2List = {};
 
-d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
-//d3.tsv("data/wikinews.tsv", function(error, data_) {
+//d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
+d3.tsv("data/wikinews.tsv", function(error, data_) {
       if (error) throw error;
     data = data_;
     
@@ -235,44 +270,39 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         
         
     });
-    console.log("DONE reading the input file = "+data.length)
-      
+    console.log("DONE reading the input file = "+data.length); 
 
+    setupSliderScale(svg);
+    drawColorLegend();
+    drawTimeLegend();
+    drawTimeBox(); // This box is for brushing
     
-  
-    console.log("DONE computing monthly sources")
-   
-
-    //readTermsAndRelationships("p__saddam hussein");
-    
-    readTermsAndRelationships();
+    readTermsAndRelationships();  
     computeNodes();
     computeLinks();
 
 
     force.linkStrength(function(l) {
-        //return (1);
-        return (1+l.value*2);
+        if (l.value)
+            return (8+l.value*2);
+        else 
+            return 1;       
     });
     
     force.linkDistance(function(l) {
         if (searchTerm!=""){
             if (l.source.name == searchTerm || l.target.name == searchTerm){
                 var order = isContainedInteger(listMonth,l.m)
-                console.log(l.m+" order= "+order);
                 return (12*order);  
             }    
             else
                 return 0;    
         }
         else{
-            if (l.count==1)
-                return 1; 
-            else if (l.count>1)
+            if (l.value)
                 return 0;
-            else {
-                return 10;     
-            }          
+            else 
+                return 12;           
         }
     });
 
@@ -359,7 +389,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             .attr("dy", ".35em")
             .style("fill", function(d) { return getColor(d.group, d.max) ;})
             .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
+            .style("text-shadow", "1px 1px 0 rgba(55, 55, 55, 0.6")
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
             .attr("dy", ".21em")
             .attr("font-family", "sans-serif")
@@ -376,10 +406,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             .attr("y", function(d) { return d.y; });
     });    
 
-    setupSliderScale(svg);
-    drawColorLegend();
-    drawTimeLegend();
-  
+    
 
     for (var i = 0; i < termArray.length/10; i++) {
         optArray.push(termArray[i].term);
@@ -681,6 +708,11 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             nod.isConnectedMaxMonth = termArray3[i].isConnectedMaxMonth;
             nod.maxMonth = termArray3[i].isConnectedMaxMonth;
             nod.month = termArray3[i].isConnectedMaxMonth;
+            nod.x=xStep+xScale(nod.month);   // 2016 initialize x position
+            nod.y=height/2;
+            if (nodeY_byName[nod.name]!=undefined)
+                nod.y = nodeY_byName[nod.name];
+            
             if (termArray3[i].isSearchTerm){
                 nod.isSearchTerm =1;
                 if (!nod.month)
@@ -705,23 +737,21 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         // compute the monthly data      
         termMaxMax2 = 0;
         for (var i=0; i<numNode; i++){
-            nodes[i].monthly = new Array(numMonth);
+            nodes[i].monthly = [];
             for (var m=0; m<numMonth; m++){
-                nodes[i].monthly[m] = new Object();
+                var mon = new Object();
                 if (terms[nodes[i].name][m]){
-                    nodes[i].monthly[m].value = terms[nodes[i].name][m];
-                    if (nodes[i].monthly[m].value >termMaxMax2)
-                         termMaxMax2 = nodes[i].monthly[m].value ;
+                    mon.value = terms[nodes[i].name][m];
+                    if (mon.value >termMaxMax2)
+                         termMaxMax2 = mon.value ;
+                    mon.monthId = m;
+                    mon.yNode = nodes[i].y;
+                    nodes[i].monthly.push(mon);
+                    
+                   
                 }
-                else
-                    nodes[i].monthly[m].value = 0;
-                nodes[i].monthly[m].monthId = m;
-                nodes[i].monthly[m].yNode = nodes[i].y;
             }
         } 
-
-
-
 
 
         // Construct an array of only parent nodes
@@ -857,13 +887,13 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             return d.value;
         });   
 
-
-
         svg.selectAll(".nodeG").remove();
         nodeG = svg.selectAll(".nodeG")
             .data(pNodes).enter().append("g")
             .attr("class", "nodeG")
-         
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")"
+            })
          /*
         nodeG.append("circle")
             .attr("class", "node")
@@ -941,8 +971,6 @@ $('#btnUpload').click(function() {
 
 function mouseovered(d) {
     if (force.alpha()==0) {
-        console.log ("force.alpha="+force.alpha());
-        
         var list = new Object();
         list[d.name] = new Object();
 
@@ -982,8 +1010,7 @@ function mouseovered(d) {
                 }    
                 else
                   return 0.01;  
-         });
-
+        });
         nodeG.style("fill-opacity" , function(n) {  
             if (list[n.name])
                 return 1;
@@ -1002,8 +1029,7 @@ function mouseovered(d) {
                 return "translate(" + n.xConnected + "," + n.y + ")"
             }
         })
-
-         svg.selectAll(".layer")
+        svg.selectAll(".layer")
             .style("fill-opacity" , function(n) {  
                 if (list[n.name])
                     return 1;
@@ -1016,7 +1042,6 @@ function mouseovered(d) {
                 else
                   return 0;  
             });
-
     }                 
 }
 function mouseouted(d) {
@@ -1027,10 +1052,8 @@ function mouseouted(d) {
             .style("stroke-opacity" , 0.5);
         svg.selectAll(".linkArc")
             .style("stroke-opacity" , 1);    
-
         nodeG.transition().duration(500).attr("transform", function(n) {
             return "translate(" +n.xConnected + "," + n.y + ")"
-            
         })   
     }      
 }
@@ -1086,10 +1109,8 @@ function searchNode() {
             //    d.x += (xScale(d.month)-d.x)*0.1;
             //else
             //     d.x += (xScale(d.month)-d.x)*0.005;
-             d.x += (width/2-d.x)*0.01;
+            d.x += (width/2-d.x)*0.005;
            
-
-
             if  (d.parentNode>=0){
                 d.y += (nodes[d.parentNode].y- d.y)*0.5;
               // d.y = nodes[d.parentNode].y;
@@ -1105,8 +1126,6 @@ function searchNode() {
                     d.y += (yy-d.y)*0.2;
                 }
             }
-               
-
         });    
 
         if (document.getElementById("checkbox1").checked){
@@ -1129,8 +1148,8 @@ function searchNode() {
 
         svg.selectAll(".layer")
             .attr("d", function(d) { 
-                for (var m=0; m<numMonth; m++){
-                    d.monthly[m].yNode = d.y;     // Copy node y coordinate
+                for (var i=0; i<d.monthly.length; i++){
+                    d.monthly[i].yNode = d.y;     // Copy node y coordinate
                 }
                return area(d.monthly); 
             });
@@ -1140,10 +1159,14 @@ function searchNode() {
     } 
 
     function updateTransition(durationTime){
+        updateTimeLegend();
+  
         nodes.forEach(function(d) {
            d.x=xStep+xScale(d.month);
-            if (d.parentNode>=0)
+            if (d.parentNode>=0){
                 d.y= nodes[d.parentNode].y;
+            }
+            nodeY_byName[d.name]=d.y;      
         });    
 
 
@@ -1151,9 +1174,7 @@ function searchNode() {
            d.xConnected=xStep+xScale(d.isConnectedMaxMonth);
            return "translate(" + d.xConnected + "," + d.y + ")"
         })
-        
-
-        
+         
         /*
         nodeG.style("fill" , function(d) {  
             var color = nodes.forEach(function(node) {
@@ -1167,22 +1188,27 @@ function searchNode() {
             }); 
             return "#00f";  
         });*/
+
+        /*nodeG.forEach(function(d) {
+           d.xConnected=xStep+xScale(d.isConnectedMaxMonth);
+        });*/
+
+        /*
         nodeG.attr("transform", function(d) {
             var step = 0;
             d.step=0;
             nodes.forEach(function(node) {
                 if (d.name == node.name && d.month!=node.month && node.x<d.x && d.x<node.x+100){
-                //    console.log(d.name+" d.step="+d.step);    
                     d.step=-5000;
                 }
             });       
             return "translate(" + (d.x+d.step) + "," + d.y + ")";
-        });
+        });*/
 
         svg.selectAll(".layer").transition().duration(durationTime)
           .attr("d", function(d) { 
-            for (var m=0; m<numMonth; m++){
-                d.monthly[m].yNode = d.y;     // Copy node y coordinate
+            for (var i=0; i<d.monthly.length; i++){
+                d.monthly[i].yNode = d.y;     // Copy node y coordinate
             }
            return area(d.monthly); }) ;
         linkArcs.transition().duration(durationTime).attr("d", linkArc);     
@@ -1208,7 +1234,7 @@ function searchNode() {
           return 0;
         });  
 
-        var step = Math.min(height/(numNode+2),15);
+        var step = Math.min((height-20)/(numNode+1),15);
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
