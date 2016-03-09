@@ -106,8 +106,8 @@ function xScale(m){
         var lMonth = Math.floor((coordinate[0]-xStep)/XGAP_);
         var maxM = Math.max(0, lMonth-numLens-1);
         var numMonthInLense = (lMonth+numLens-maxM+1);
+        
         //compute the new xGap
-
         var total= numMonth+numMonthInLense*(lensingMul-1);
         var xGap = (XGAP_*numMonth)/total;
         

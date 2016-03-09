@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 1500 - margin.top - margin.bottom;
+var height = 770 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -58,7 +58,7 @@ var force2 = d3.layout.force()
     .charge(-80)
     .linkDistance(80)
     .gravity(0.08)
-    .alpha(0.12)
+    .alpha(0.1)
     .size([width, height]);    
 
 //---Insert-------
@@ -100,7 +100,7 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 1990;
+var minYear = 1950;
 var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
@@ -119,8 +119,8 @@ var relationship;
 var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
-var xScale = d3.time.scale().range([0, (width-400)/numYear]);
-var xStep = 200;
+var xScale = d3.time.scale().range([0, (width-300)/numYear]);
+var xStep = 100;
 var yScale;
 var linkScale;
 //var searchTerm ="Munzner, T.";
@@ -164,8 +164,8 @@ var listYear = [];
 
 
 //d3.tsv("data/pcCombined3.tsv", function(error, data_) {
-d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
-//d3.tsv("data/imdb1.tsv", function(error, data_) {
+//d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
+d3.tsv("data/imdb1.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
@@ -895,9 +895,9 @@ console.log(d.source.x);
     }
 
     function computeNodes() {
-        numNode0 = Math.min(100, termArray.length);
-        computeConnectivity(termArray, numNode0);
-        console.log("termArray="+termArray.length);
+        //numNode0 = Math.min(100, termArray.length);
+        //computeConnectivity(termArray, numNode0);
+        //console.log("termArray="+termArray.length);
         
         termArray.sort(function (a, b) {
          /*if (a.isConnected < b.isConnected) {
@@ -907,18 +907,16 @@ console.log(d.source.x);
             return -1;
           }
           else{*/
-                if (a.max < b.max) {
+                if (a.max < b.max) 
                     return 1;
-                }
-                else if (a.max > b.max) {
+                else if (a.max > b.max) 
                     return -1;
-                }
                 else 
-                return 0;
+                    return 0;
            // }
         });   
       
-        numNode = Math.min(100, termArray.length);
+        numNode = Math.min(1000, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -1206,7 +1204,7 @@ console.log(d.source.x);
             .attr("class", "nodeG")
          
         svg.selectAll(".nodeText").remove();
-        nodeG.append("text")
+        /*nodeG.append("text")
             .attr("class", ".nodeText")  
             .text(function(d) { return d.name })           
             .attr("dy", ".35em")
@@ -1219,7 +1217,7 @@ console.log(d.source.x);
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
                 return d.isSearchTerm ? "12px" : "10px"; });
-
+        */
 
 
         nodeG.on('mouseover', mouseovered)
@@ -1380,8 +1378,6 @@ function mouseoutedLink(l) {
 
 function mouseovered(d) {
     if (force.alpha()==0) {
-        console.log ("force.alpha="+force.alpha());
-        
         var list = new Object();
         list[d.name] = new Object();
 
@@ -1764,7 +1760,7 @@ function mouseouted(d) {
           return 0;
         });  
 
-        var step = Math.min(height/(numNode+2),12.5);
+        var step = Math.min((height-20)/(numNode+1),12.5);
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
