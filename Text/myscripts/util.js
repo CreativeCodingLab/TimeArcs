@@ -202,7 +202,7 @@ function drawTimeBox(){
     .attr("x", xStep)
     .attr("y", height-25)
     .attr("width", XGAP_*numMonth)
-    .attr("height", 26)
+    .attr("height", 16)
     .on("mouseout", function(){
       isLensing = false;
       coordinate = d3.mouse(this);
@@ -228,9 +228,9 @@ function updateTimeBox(durationTime){
   svg.selectAll(".timeLegendText").transition().duration(durationTime)
     .attr("y", function(d,i) { 
       if (i%12==0)
-        return maxY+32;
+        return maxY+21;
       else
-        return maxY+25;   
+        return maxY+21;   
     });   
 }
 

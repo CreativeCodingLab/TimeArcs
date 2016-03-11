@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 5};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 900 - margin.top - margin.bottom;
+var height = 500 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -84,7 +84,7 @@ var relationship;
 var termMaxMax, termMaxMax2;
 var terms;
 var NodeG; 
-var xStep =120;
+var xStep =170;
 //var xScale = d3.time.scale().range([0, (width-xStep-100)/numMonth]);
 var yScale;
 var linkScale;
@@ -96,7 +96,7 @@ var isLensing = false;
 var lensingMul = 5;
 var lMonth = -lensingMul*2;
 var coordinate = [0,0];
-var XGAP_ = 9; // gap between months on xAxis
+var XGAP_ = 8; // gap between months on xAxis
 
 function xScale(m){
     if (isLensing){
@@ -561,7 +561,7 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
         
        
     // Compute relationship **********************************************************
-        numNode = Math.min(100, termArray.length);
+        numNode = Math.min(50, termArray.length);
         numNode2 = Math.min(numNode*5, termArray.length);
         var selectedTerms = {};
         for (var i=0; i<numNode2;i++){
@@ -746,9 +746,28 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
                     mon.monthId = m;
                     mon.yNode = nodes[i].y;
                     nodes[i].monthly.push(mon);
-                    
-                   
                 }
+            }
+            // Add another item to first
+            if (nodes[i].monthly.length>0){
+               var firstObj = nodes[i].monthly[0];
+               if (firstObj.monthId>0){
+                    var mon = new Object();
+                    mon.value = 0;
+                    mon.monthId = firstObj.monthId-1;
+                    mon.yNode = firstObj.yNode;
+                    nodes[i].monthly.unshift(mon);
+               }
+
+                // Add another item
+               var lastObj = nodes[i].monthly[nodes[i].monthly.length-1];
+               if (lastObj.monthId<numMonth-1){
+                    var mon = new Object();
+                    mon.value = 0;
+                    mon.monthId = lastObj.monthId+1;
+                    mon.yNode = lastObj.yNode;
+                    nodes[i].monthly.push(mon);
+               }
             }
         } 
 
