@@ -62,7 +62,6 @@ var node_drag = d3.behavior.drag()
 
 
 var data, data2;
-
 var firstDate = Date.parse("2005-01-01T00:00:00");
 var numSecondADay = 24*60*60;
 var numSecondAMonth = 30*numSecondADay;
@@ -95,15 +94,13 @@ var nodeY_byName = {};
 
 var isLensing = false;
 var lensingMul = 5;
+var lMonth = -lensingMul*2;
 var coordinate = [0,0];
-
 var XGAP_ = 9; // gap between months on xAxis
 
 function xScale(m){
     if (isLensing){
         var numLens = 5;
-        
-        var lMonth = Math.floor((coordinate[0]-xStep)/XGAP_);
         var maxM = Math.max(0, lMonth-numLens-1);
         var numMonthInLense = (lMonth+numLens-maxM+1);
         
@@ -273,11 +270,14 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
     console.log("DONE reading the input file = "+data.length); 
 
     setupSliderScale(svg);
+    
+    readTermsAndRelationships();  
+    
     drawColorLegend();
     drawTimeLegend();
     drawTimeBox(); // This box is for brushing
-    
-    readTermsAndRelationships();  
+    drawLensingButton();
+
     computeNodes();
     computeLinks();
 
@@ -542,7 +542,6 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
 
             termArray.push(e);
         }
-        console.log("  termArray.length="+termArray.length) ; 
         
         termArray.sort(function (a, b) {
           if (a.max < b.max) {
@@ -554,10 +553,10 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
           return 0;
         });    
 
-        if (!searchTerm)
-            numberInputTerms = termArray.length;
-        
-       console.log("Finish ordering term by maxNet") ; 
+        //if (searchTerm)
+        numberInputTerms = termArray.length;
+       console.log("numberInputTerms="+numberInputTerms) ; 
+         
         
         
        
@@ -1156,11 +1155,11 @@ function searchNode() {
         linkArcs.attr("d", linkArc);
        // if (force.alpha()<0.03)
        //     force.stop();
+
+       updateTimeLegend();       
     } 
 
     function updateTransition(durationTime){
-        updateTimeLegend();
-  
         nodes.forEach(function(d) {
            d.x=xStep+xScale(d.month);
             if (d.parentNode>=0){
@@ -1212,6 +1211,8 @@ function searchNode() {
             }
            return area(d.monthly); }) ;
         linkArcs.transition().duration(durationTime).attr("d", linkArc);     
+        updateTimeLegend();
+        updateTimeBox(durationTime);
     }    
 
     function detactTimeSeries(){
@@ -1234,14 +1235,14 @@ function searchNode() {
           return 0;
         });  
 
-        var step = Math.min((height-20)/(numNode+1),15);
-        var totalH = termArray.length*step;
+        var step = Math.min((height-25)/(numNode+1),15);
+        //var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
-            nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
+            nodes[termArray[i].nodeId].y = 12+i*step;
         }
         force.stop();
 
-        updateTransition(2000);
+        updateTransition(1000);
 }
 
 
