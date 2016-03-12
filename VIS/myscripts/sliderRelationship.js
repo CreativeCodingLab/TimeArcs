@@ -44,7 +44,7 @@ function setupSliderScale(svg) {
     .attr("dy", ".21em")
     .attr("font-family", "sans-serif")
     .attr("font-size", "10px")
-    .text("Mentioned together")
+    .text("Filter frequency")
     .style("text-anchor","start"); 
 
   slider = svg.append("g")

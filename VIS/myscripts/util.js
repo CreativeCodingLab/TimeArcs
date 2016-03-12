@@ -5,11 +5,11 @@ var diameter = 1000,
   // Add color legend
 function drawColorLegend() {
       var xx = 6;
-      var y1 = 20;
-      var y2 = 34;
-      var y3 = 48;
-      var y4 = 62;
-      var y5 = 76;
+      var y1 = 50;
+      var y2 = 64;
+      var y3 = 78;
+      var y4 = 92;
+      var y5 = 106;
       var rr = 6;
       
       svg.append("circle")
@@ -23,8 +23,8 @@ function drawColorLegend() {
         .attr("class", "nodeLegend")
         .attr("x", xx+10)
         .attr("y", y1+2)
-        .text("adds_modification")
-       // .text("InfoVis")
+        //.text("adds_modification")
+        .text("InfoVis")
        //.text("Comedy")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
@@ -43,8 +43,8 @@ function drawColorLegend() {
         .attr("class", "nodeLegend")
         .attr("x", xx+10)
         .attr("y", y2+2)
-        .text("removes_modification")
-        //.text("VAST")
+        //.text("removes_modification")
+        .text("VAST")
         //.text("Action")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
@@ -63,8 +63,8 @@ function drawColorLegend() {
         .attr("class", "nodeLegend")
         .attr("x", xx+10)
         .attr("y", y3+2)
-        .text("translocation")
-       // .text("SciVis")
+       // .text("translocation")
+        .text("SciVis")
        // .text("Drama")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
@@ -73,6 +73,7 @@ function drawColorLegend() {
         .style("fill", "#0000cc");  
 
 
+       /* 
        svg.append("circle")
         .attr("class", "nodeLegend")
         .attr("cx", xx)
@@ -111,7 +112,7 @@ function drawColorLegend() {
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
         .style("text-anchor", "left")
-        .style("fill", "#f0f");     
+        .style("fill", "#f0f");     */
 }
 
 function removeColorLegend() {
@@ -121,7 +122,7 @@ function drawTimeLegend() {
   for (var i=minYear; i<maxYear;i++){
     var xx = xStep+xScale((i-minYear));
     svg.append("line")
-      .style("stroke", "#00a")
+      .style("stroke", colorTitle)
       .style("stroke-dasharray", ("1, 2"))
       .style("stroke-opacity", 1)
       .style("stroke-width", 0.2)
@@ -130,7 +131,7 @@ function drawTimeLegend() {
       .attr("y1", function(d){ return 0; })
       .attr("y2", function(d){ return height; });
      svg.append("text")
-      .style("fill", "#000")   
+      .style("fill", colorTitle)   
       .style("text-anchor","start")
       .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
       .attr("x", xx)
