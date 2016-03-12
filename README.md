@@ -1,7 +1,7 @@
 # TimeArcs: Visualizing Fluctuations in Dynamic Networks
 Please click to watch the overview video.
 
-[![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/VideoTeaser.png)](http://www.cs.uic.edu/~tdang/ReactionFlow/video.mp4)
+[![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/VideoTeaser.png)](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/TimeArcs_Dang_EuroVis2016.mp4)
 
 This work was funded by the DARPA Big Mechanism Program under ARO contract WF911NF-14-1-0395.
 
