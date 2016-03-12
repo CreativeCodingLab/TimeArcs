@@ -318,9 +318,7 @@ d3.tsv("data/wikinews.tsv", function(error, data_) {
             detactTimeSeries();
         });
 
-        force.linkStrength(function(link) {
-        return (1+link.value);
-        });
+        
 
 
 

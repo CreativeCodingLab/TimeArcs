@@ -118,7 +118,7 @@ function removeColorLegend() {
  svg.selectAll(".nodeLegend").remove();
 }
 function drawTimeLegend() {
-  for (var i=minYear; i<maxYear;i=i+5){
+  for (var i=minYear; i<maxYear;i++){
     var xx = xStep+xScale((i-minYear));
     svg.append("line")
       .style("stroke", "#00a")
@@ -149,7 +149,7 @@ function getColor(category, count) {
   var sat = minSat+Math.round(percent*(maxSat-minSat));
   //console.log(category+" "+count+" termMaxMax3="+termMaxMax3+" sat="+sat);
   if (category=="InfoVis" || category=="Comedy" || category=="adds_modification")
-    return "rgb("+sat+", "+230+", "+sat+")" ; // leaf node
+    return "rgb("+sat+", "+180+", "+sat+")" ; // leaf node
   else if (category=="VAST" || category=="Action" || category=="removes_modification")
     return "rgb("+230+", "+sat+", "+sat+")" ; // leaf node
   else if (category=="SciVis" || category=="Drama"|| category=="translocation")
