@@ -1,5 +1,11 @@
-# IndexCardVisualizations
-Home of FRIES/PathwayCommon IndexCard alignment visualizations 
+# TimeArcs: Visualizing Fluctuations in Dynamic Networks
+Please click to watch the overview video.
+
+[![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/VideoTeaser.png)](http://www.cs.uic.edu/~tdang/ReactionFlow/video.mp4)
+
+This work was funded by the DARPA Big Mechanism Program under ARO contract WF911NF-14-1-0395.
+
+
 
 The following document shows TimeArcs visualization for Pathway Commons index cards. 
 
