@@ -152,7 +152,7 @@ function getColor(category, count) {
   var sat = minSat+Math.round(percent*(maxSat-minSat));
   //console.log(category+" "+count+" termMaxMax3="+termMaxMax3+" sat="+sat);
   if (category=="InfoVis" || category=="Comedy" || category=="adds_modification" || category=="increases_activity")
-    return "rgb("+sat+", "+200+", "+sat+")" ; // leaf node
+    return "rgb("+sat+", "+180+", "+sat+")" ; // leaf node
   else if (category=="VAST" || category=="Action" || category=="removes_modification" || category=="decreases_activity")
     return "rgb("+230+", "+sat+", "+sat+")" ; // leaf node
   else if (category=="SciVis" || category=="Drama"|| category=="translocation")

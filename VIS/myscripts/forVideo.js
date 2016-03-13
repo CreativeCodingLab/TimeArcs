@@ -149,6 +149,11 @@ var svg111 = d3.select("body").append("svg")
 */
 // Function **********************************************    
 function runForceLayouts(){
+     force2.nodes(nodes2)
+        .links(links2)
+        .start();    
+
+
   var link2 = svg2.selectAll(".link2")
       .data(links2)
     .enter().append("line")

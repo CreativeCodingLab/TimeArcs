@@ -7,6 +7,7 @@ var height = 550 - margin.top - margin.bottom;
 
 //Append a SVG to the body of the html page. Assign this SVG as an object to svg
 
+/*
 var colorTitle = "#909";
 var svg22 = d3.select("body").append("svg")
     .attr("width", width)
@@ -28,7 +29,7 @@ svg22.append("text")
     .attr("font-family", "sans-serif")
     .attr("font-size", "40px")
     .style("text-anchor", "middle")
-    .style("fill", colorTitle);
+    .style("fill", colorTitle);*/
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -75,7 +76,7 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 2006;
+var minYear = 1955;
 var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
@@ -139,8 +140,8 @@ var listYear = [];
 
 
 //d3.tsv("data/pcCombined3.tsv", function(error, data_) {
-d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
-//d3.tsv("data/imdb1.tsv", function(error, data_) {
+//d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
+d3.tsv("data/imdb1.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
@@ -217,26 +218,12 @@ d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
         }        
     });
     console.log("DONE reading the input file = "+data.length)
-      
-
-    
-     
-    console.log("DONE computing yearly sources")
-   
 
     //readTermsAndRelationships("p__saddam hussein");
     
     readTermsAndRelationships();
     computeNodes();
     computeLinks();
-
-    //Creates the graph data structure out of the json data
-    //   force.linkStrength(100);
-    
-    
-  //  force.linkStrength(function(l) {
-  //      return (1+l.value*3);
-  //  });
 
     force.linkStrength(function(l) {
         if (l.value)
@@ -289,6 +276,7 @@ d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
     
     
     /// The second force directed layout ***********
+    /*
     for (var i=0;i<nodes.length;i++){
         var nod = nodes[i];
         if (!nodes2List[nod.name] && nodes2List[nod.name]!=0){
@@ -351,7 +339,7 @@ d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
 
             oldl.count += l.count;
         }   
-    }
+    }*/
 
 
 
@@ -359,10 +347,7 @@ d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
         .links(links)
         .start(100,150,200);
 
-    force2.nodes(nodes2)
-        .links(links2)
-        .start();    
-
+   
    // runForceLayouts();
 
     force.on("tick", function () {

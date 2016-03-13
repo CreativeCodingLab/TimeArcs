@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 1700 - margin.top - margin.bottom;
+var height = 750 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -330,11 +330,7 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
             }
 
             oldl.count += l.count;
-        }
-
-
-        
-        
+        }  
     }
 
 
@@ -365,16 +361,16 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
   var node2 = svg2.selectAll(".nodeText2")
     .data(nodes2)
     .enter().append("text")
-      .attr("class", "nodeText2")  
-            .text(function(d) { return d.name })           
-            .attr("dy", ".35em")
-            .style("fill","#000")
-            .style("text-anchor","middle")
-            .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-            .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
-            .attr("dy", ".21em")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "10px"); 
+        .attr("class", "nodeText2")  
+        .text(function(d) { return d.name })           
+        .attr("dy", ".35em")
+        .style("fill","#000")
+        .style("text-anchor","middle")
+        .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
+        .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
+        .attr("dy", ".21em")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "9px"); 
 
 node2.append("title")
       .text(function(d) { return d.name; });
@@ -639,9 +635,9 @@ node2.append("title")
         console.log("termArray="+termArray.length);
         computeConnectivity(termArray, numNode0);
         
-        /*
+        
         termArray.sort(function (a, b) {
-         /*if (a.isConnected < b.isConnected) {
+         if (a.isConnected < b.isConnected) {
             return 1;
           }
           else if (a.isConnected > b.isConnected) {
@@ -656,10 +652,10 @@ node2.append("title")
                 }
                 else 
                 return 0;
-           // }
-        });   */
+            }
+        });   
       
-        numNode = Math.min(200, termArray.length);
+        numNode = Math.min(150, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -852,7 +848,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.25, 0.5])
+            .range([0.5, 1])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -905,7 +901,7 @@ node2.append("title")
             .attr("font-family", "sans-serif")
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
-                return d.isSearchTerm ? "11px" : "10px"; });
+                return d.isSearchTerm ? "10px" : "9px"; });
 
 
 
@@ -996,9 +992,11 @@ function mouseoveredLink(l) {
 
         var listCardId = [];
         var listTilte = [];
+        var listTilte = [];
         var listEvidence = [];
         var listType = [];
         var listBoth = {};
+
         data2.forEach(function(d) { 
             var year = d.year;
             if (year==l.m){
@@ -1009,8 +1007,8 @@ function mouseoveredLink(l) {
                             if (term2==list[j]){
                                 if (!listBoth[d.Title.substring(0,10)+"**"+d.Conference]){
                                     listCardId.push(d["CardId"]);
-                                    listTilte.push(d.Title);
-                                    listEvidence.push(d.Evidence);
+                                    listEvidence.push(d.Title);
+                                    listTilte.push(d.Evidence);
                                     listType.push(d.Conference);
                                     listBoth[d.Title.substring(0,10)+"**"+d.Conference] =1;
                                 }
@@ -1026,7 +1024,7 @@ function mouseoveredLink(l) {
         var y1 = l.source.y;
         var y2 = l.target.y;
         var x3 = xStep+(x1+x2)/2+Math.abs(y1-y2)/2+10;
-        var yGap = 22;
+        var yGap = 12;
         var totalSize = yGap*listTilte.length;
 
         var tipData = new Object();
@@ -1039,7 +1037,7 @@ function mouseoveredLink(l) {
                 .attr("class", "linkTilte")
                 .attr("x", x3)
                 .attr("y", y3)
-                .text("Title: "+listTilte[i])
+                .text(listEvidence[i])
                 .attr("dy", ".21em")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "11px")
@@ -1049,7 +1047,7 @@ function mouseoveredLink(l) {
                     return getColor(listType[i], 0); 
                  })
                 .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
-            svg.append("text")
+            /*svg.append("text")
                 .attr("class", "linkTilte")
                 .attr("x", x3+26)
                 .attr("y", y3+10)
@@ -1062,7 +1060,7 @@ function mouseoveredLink(l) {
                 .style("fill", function(d) { 
                     return getColor(listType[i], 0); 
                  })
-                .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");
+                .style("text-shadow", "1px 1px 0 rgba(200, 200, 200, 0.6");*/
                 //.style("font-weight", "bold");
         }
        // tip.show(tipData);
@@ -1074,6 +1072,9 @@ function mouseoveredLink(l) {
                 else
                     return 0.1;
             });  
+        svg.selectAll(".linePNodes")
+            .style("stroke-opacity", 0.1);     
+            
         nodeG.style("fill-opacity" , function(n) {  
             if (n.name== term1 || n.name== term2)
                 return 1;
@@ -1101,6 +1102,8 @@ function mouseoutedLink(l) {
         nodeG.transition().duration(500).attr("transform", function(n) {
             return "translate(" +n.xConnected + "," + n.y + ")"
         })  
+        svg.selectAll(".linePNodes")
+            .style("stroke-opacity", 1);  
     }
 }   
 
@@ -1522,6 +1525,8 @@ function mouseouted(d) {
 
     function detactTimeSeries(){
        // console.log("DetactTimeSeries ************************************" +data);
+        nodeG.selectAll(".nodeText")
+            .attr("font-size", "8px");
         var termArray = [];
         for (var i=0; i< numNode; i++) {
             var e =  {};
@@ -1539,7 +1544,7 @@ function mouseouted(d) {
           return 0;
         });  
 
-        var step = Math.min(height/(numNode+2),11);
+        var step = Math.min((height-20)/(numNode+1),11);
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
@@ -1551,7 +1556,10 @@ function mouseouted(d) {
 
 function groupSimilarNodes(){
     if (document.getElementById("checkbox1").checked){
-        console.log("****** groupSimilarNodes *******");
+        nodeG.selectAll(".nodeText")
+            .attr("font-size", "8px");
+
+        //console.log("****** groupSimilarNodes *******");
         for (var i=0;i<pNodes.length;i++){
             pNodes[i].isProcessed = false;
         }
@@ -1584,7 +1592,7 @@ function groupSimilarNodes(){
         });  
 
         // asign the Y position
-        var step = Math.min(height/(array.length+2),11);
+        var step = Math.min((height-20)/(array.length+1),6);
         var currentY = 0;
         for (var i=0;i<array.length;i++){
             var n1 = array[i];
