@@ -24,8 +24,8 @@ function drawColorLegend() {
         .attr("x", xx+10)
         .attr("y", y1+2)
         //.text("adds_modification")
-        .text("InfoVis")
-       //.text("Comedy")
+       // .text("InfoVis")
+       .text("Comedy")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
@@ -44,8 +44,8 @@ function drawColorLegend() {
         .attr("x", xx+10)
         .attr("y", y2+2)
         //.text("removes_modification")
-        .text("VAST")
-        //.text("Action")
+        //.text("VAST")
+        .text("Action")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
@@ -64,8 +64,8 @@ function drawColorLegend() {
         .attr("x", xx+10)
         .attr("y", y3+2)
        // .text("translocation")
-        .text("SciVis")
-       // .text("Drama")
+       // .text("SciVis")
+        .text("Drama")
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
@@ -119,7 +119,8 @@ function removeColorLegend() {
  svg.selectAll(".nodeLegend").remove();
 }
 function drawTimeLegend() {
-  for (var i=minYear; i<maxYear;i++){
+  colorTitle = "#000";
+  for (var i=minYear; i<maxYear;i=i+5){
     var xx = xStep+xScale((i-minYear));
     svg.append("line")
       .style("stroke", colorTitle)

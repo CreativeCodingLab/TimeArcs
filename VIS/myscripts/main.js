@@ -1,7 +1,7 @@
 //Constants for the SVG
-var margin = {top: 0, right: 20, bottom: 5, left: 15};
+var margin = {top: 0, right: 10, bottom: 5, left: 10};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 550 - margin.top - margin.bottom;
+var height = 770 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -96,7 +96,7 @@ var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
 var xScale = d3.time.scale().range([0, (width-250)/numYear]);
-var xStep = 210;
+var xStep = 125;
 var yScale;
 var linkScale;
 //var searchTerm ="Munzner, T.";
@@ -131,17 +131,14 @@ var areaSciVis = d3.svg.area()
         .y0(function(d) { return d.yNode-yScale(d.value)+2*yScale(d.InfoVis)+2*yScale(d.VAST); })
         .y1(function(d) {  return d.yNode -yScale(d.value)+2*yScale(d.InfoVis)+2*yScale(d.VAST)+2*yScale(d.SciVis); });
      
-  
 var optArray = [];   // FOR search box
-
 var numberInputTerms =0;
 var listYear = [];
-
-
 
 //d3.tsv("data/pcCombined3.tsv", function(error, data_) {
 //d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
 d3.tsv("data/imdb1.tsv", function(error, data_) {
+//d3.tsv("data/imdb90_50.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
@@ -152,11 +149,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     data.forEach(function(d) {
         var year = parseInt(d["Year"])-minYear;
         d.year = year;
-        //if (d.year<20) return; 
-            
         numberInputTerms++;
-      //  if (numberInputTerms==612)
-      //       console.log(d["Author Names"]);
              
         var list = d["Author Names"].split(";");
         cccc++;
@@ -341,13 +334,9 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         }   
     }*/
 
-
-
     force.nodes(nodes)
         .links(links)
         .start(100,150,200);
-
-   
    // runForceLayouts();
 
     force.on("tick", function () {
@@ -356,9 +345,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     force.on("end", function () {
         detactTimeSeries();
     });
-
-    
-    
 
     setupSliderScale(svg);
     drawColorLegend();
@@ -411,12 +397,19 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     function readTermsAndRelationships() {
         data2 = data.filter(function (d, i) {
            // if (d.year<20) return; 
-        
-            if (!searchTerm || searchTerm=="" ) {
-                return d;
+            
+            var rating = parseFloat(d["Rating"]);
+            var year = parseFloat(d["Year"]);
+            var up = (year-minYear)/(maxYear-minYear);
+
+            console.log(up+ " Rating="+d["Rating"]+ " year="+year);
+            if (rating>8.25+up/4){  //For IMDB *******************************testing
+                if (!searchTerm || searchTerm=="" ) {
+                    return d;
+                }
+                else if (d[searchTerm])
+                    return d;
             }
-            else if (d[searchTerm])
-                return d;
         });
 
 
@@ -489,9 +482,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             }
               
             termArray.push(e);
-        }
-//        console.log("  termArray.length="+termArray.length) ; 
-       
+        }       
         if (!searchTerm)
             numberInputTerms = termArray.length;
         
@@ -541,7 +532,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
                             } 
                     //    } 
                     }
-
                 }
             }
         });
@@ -553,8 +543,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         for (var i=0; i<num;i++){
             a[i].isConnected=-100;
             a[i].isConnectedMaxYear= a[i].maxYear;
-        }    
-        
+        }           
         for (var i=0; i<num;i++){
             var term1 =  a[i].term;
             for (var j=i+1; j<num;j++){
@@ -613,7 +602,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
            // }
         });   
       
-        numNode = Math.min(60, termArray.length);
+        numNode = Math.min(2000, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -873,7 +862,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.5, 1.25])
+            .range([0.2, 0.5])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -916,7 +905,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("class", "nodeG")
          
         svg.selectAll(".nodeText").remove();
-        nodeG.append("text")
+        /*nodeG.append("text")
             .attr("class", ".nodeText")  
             .text(function(d) { return d.name })           
             .attr("dy", ".35em")
@@ -929,7 +918,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
                 return d.isSearchTerm ? "12px" : "10px"; });
-        
+        */
 
 
         nodeG.on('mouseover', mouseovered)
@@ -1475,9 +1464,9 @@ function mouseouted(d) {
           return 0;
         });  
         console.log("pNodes.length="+pNodes.length);
-        var step = Math.min((height-30)/(termArray.length),13);
+        var step = Math.min((height-12)/(termArray.length),13);
         for (var i=0; i< termArray.length; i++) {
-            nodes[termArray[i].nodeId].y = 13+i*step;
+            nodes[termArray[i].nodeId].y = 1+i*step;
         }
         force.stop();
 
