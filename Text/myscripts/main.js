@@ -1227,7 +1227,7 @@ function searchNode() {
                 d.monthly[i].yNode = d.y;     // Copy node y coordinate
             }
            return area(d.monthly); }) ;
-        linkArcs.transition().duration(durationTime).attr("d", linkArc);     
+        linkArcs.transition().duration(250).attr("d", linkArc);     
         updateTimeLegend();
         updateTimeBox(durationTime);
     }    

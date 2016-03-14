@@ -118,31 +118,7 @@ function drawColorLegend() {
 function removeColorLegend() {
  svg.selectAll(".nodeLegend").remove();
 }
-function drawTimeLegend() {
-  colorTitle = "#000";
-  for (var i=minYear; i<maxYear;i=i+5){
-    var xx = xStep+xScale((i-minYear));
-    svg.append("line")
-      .style("stroke", colorTitle)
-      .style("stroke-dasharray", ("1, 2"))
-      .style("stroke-opacity", 1)
-      .style("stroke-width", 0.2)
-      .attr("x1", function(d){ return xx; })
-      .attr("x2", function(d){ return xx; })
-      .attr("y1", function(d){ return 0; })
-      .attr("y2", function(d){ return height; });
-     svg.append("text")
-      .style("fill", colorTitle)   
-      .style("text-anchor","start")
-      .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
-      .attr("x", xx)
-      .attr("y", height-5)
-      .attr("dy", ".21em")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "15px")
-      .text(function(d) { return i });  
-  }
-}  
+
 
 function getColor(category, count) {
   var minSat = 0;
@@ -164,8 +140,6 @@ function getColor(category, count) {
     console.log(category);
     return "#000000";    
   }
-   
-
 }
 
 function colorFaded(d) {

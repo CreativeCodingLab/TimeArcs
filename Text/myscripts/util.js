@@ -149,6 +149,7 @@ function drawTimeLegend() {
 }
 
 function updateTimeLegend() {
+  console.log("updateTimeLegend");
   var listX=[];
   for (var i=minYear; i<maxYear;i++){
     for (var j=0; j<12;j++){
@@ -189,9 +190,9 @@ function updateTimeLegend() {
             return 0; 
         }
       }) 
-      .attr("x", function(d){ return d.x; });  
-
-
+      .attr("x", function(d,i){ 
+        console.log("i="+i+" d.x="+d.x+" d.year="+d.year);
+        return d.x; });  
 }
 
 function drawTimeBox(){  
@@ -226,12 +227,25 @@ function updateTimeBox(durationTime){
   svg.selectAll(".timeBox").transition().duration(durationTime)
       .attr("y", maxY+12);
   svg.selectAll(".timeLegendText").transition().duration(durationTime)
+    .style("fill-opacity", function(d,i){
+        if (i%12==0)
+          return 1;
+        else {
+          if (isLensing && lMonth-lensingMul<=i && i<=lMonth+lensingMul)
+              return 1;
+          else 
+            return 0; 
+        }
+      }) 
     .attr("y", function(d,i) { 
       if (i%12==0)
         return maxY+21;
       else
         return maxY+21;   
-    });   
+    })
+    .attr("x", function(d,i){ 
+      console.log("i="+i+" d.x="+d.x+" d.year="+d.year);
+      return d.x; });   
 }
 
 var buttonLensingWidth =80;
@@ -239,6 +253,7 @@ var buttonheight =15;
 var roundConner = 4;
 var colorHighlight = "#fc8";
 var buttonColor = "#ddd";
+
 function drawLensingButton(){  
   svg.append('rect')
     .attr("class", "lensingRect")

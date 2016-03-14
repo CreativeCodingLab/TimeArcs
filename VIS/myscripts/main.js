@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 10, bottom: 5, left: 10};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 770 - margin.top - margin.bottom;
+var height = 800 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -42,7 +42,7 @@ var topTermMode = 0;
 var force = d3.layout.force()
     .charge(-10)
     .linkDistance(0)
-    .gravity(0.002)
+    .gravity(0.0)
     //.friction(0.5)
     .alpha(0.1)
     .size([width, height]);
@@ -95,16 +95,14 @@ var relationship;
 var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
-var xScale = d3.time.scale().range([0, (width-250)/numYear]);
-var xStep = 125;
+//var xScale = d3.time.scale().range([0, (width-250)/numYear]);
+var xStep = 140;
 var yScale;
 var linkScale;
 //var searchTerm ="Munzner, T.";
 var searchTerm ="";
-
-
- var nodes2 = [];
- var links2 = [];
+var nodes2 = [];
+var links2 = [];
 var nodes2List = {};
 var links2List = {};
 var linePNodes ={};
@@ -217,6 +215,8 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     readTermsAndRelationships();
     computeNodes();
     computeLinks();
+    
+    drawLensingButton();
 
     force.linkStrength(function(l) {
         if (l.value)
@@ -395,15 +395,11 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     } 
 
     function readTermsAndRelationships() {
-        data2 = data.filter(function (d, i) {
-           // if (d.year<20) return; 
-            
+        data2 = data.filter(function (d, i) { 
             var rating = parseFloat(d["Rating"]);
             var year = parseFloat(d["Year"]);
             var up = (year-minYear)/(maxYear-minYear);
-
-            console.log(up+ " Rating="+d["Rating"]+ " year="+year);
-            if (rating>8.25+up/4){  //For IMDB *******************************testing
+            if (rating>8.25+up/4){  //For IMDB ****************************************testing
                 if (!searchTerm || searchTerm=="" ) {
                     return d;
                 }
@@ -446,22 +442,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             e.term = att;
             if (removeList[e.term] || (searchTerm && searchTerm!="" && !selected[e.term])) // remove list **************
                 continue;
-
-            /*
-            var maxNet = 0;
-            var maxYear = -1;
-            for (var y=1; y<numYear;y++){
-                if (terms[att][y]){
-                    var previous = 0;
-                    if (terms[att][y-1])
-                        previous = terms[att][y-1];
-                    var net = (terms[att][y]+1)/(previous+1);
-                    if (net>maxNet){
-                        maxNet=net;
-                        maxYear = y;
-                    }    
-                }
-            }*/
             var maxmaxmax = 0
             for (var i=0;i<numYear;i++){
                 if (terms[att][i])
@@ -581,10 +561,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     }
 
     function computeNodes() {
-        //numNode0 = Math.min(100, termArray.length);
-        //computeConnectivity(termArray, numNode0);
-        //console.log("termArray="+termArray.length);
-        
         termArray.sort(function (a, b) {
           /*if (a.isConnected < b.isConnected) {
             return 1;
@@ -862,7 +838,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.2, 0.5])
+            .range([0.25, 0.5])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -910,6 +886,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .text(function(d) { return d.name })           
             .attr("dy", ".35em")
             .style("fill","#000000")
+            .style("fill-opacity",0)
             .style("text-anchor","end")
             .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
@@ -917,8 +894,21 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("font-family", "sans-serif")
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
-                return d.isSearchTerm ? "12px" : "10px"; });
-        */
+                return d.isSearchTerm ? "9px" : "8px"; });*/
+        
+
+
+        svg.selectAll(".linePNodes").remove();
+        linePNodes = svg.selectAll(".linePNodes")
+            .data(pNodes).enter().append("line")//.transition().delay(durationTime).duration(durationTime)
+            .attr("class", "linePNodes")
+            .attr("x1", function(d) {return xStep+xScale(d.minY);})
+            .attr("y1", function(d) {return d.y;})
+            .attr("x2", function(d) {return xStep+xScale(d.maxY);})
+            .attr("y2", function(d) {return d.y;})
+            .style("stroke-width",0.2)
+            .style("stroke-opacity",1)
+            .style("stroke", "#000");  
 
 
         nodeG.on('mouseover', mouseovered)
@@ -1256,76 +1246,30 @@ function mouseouted(d) {
         });    
 
         //if (document.getElementById("checkbox1").checked){
-             linkArcs.style("stroke-width", 0);
-            
-            // nodeG.transition().duration(500).attr("transform", function(d) {
-            //    return "translate(" + 200 + "," + d.y + ")"
-           // })
-           // svg.selectAll(".nodeText").style("text-anchor","start")
-           
-           
-            yScale = d3.scale.linear()
-            .range([0, 2])
-            .domain([0, termMaxMax2]);
-            nodeG.attr("transform", function(d) {
-                return "translate(" + (xStep+d.x) + "," + d.y + ")"
-            })
-            linkArcs.style("stroke-width", function (d) {
-                return d.value;
-            });
-        /*}
-        else{
+         linkArcs.style("stroke-width", 0);
         
-            yScale = d3.scale.linear()
-            .range([0, 0])
-            .domain([0, termMaxMax2]);
+        // nodeG.transition().duration(500).attr("transform", function(d) {
+        //    return "translate(" + 200 + "," + d.y + ")"
+       // })
+       // svg.selectAll(".nodeText").style("text-anchor","start")
+       
+       
+        yScale = d3.scale.linear()
+        .range([0, 2])
+        .domain([0, termMaxMax2]);
+        nodeG.attr("transform", function(d) {
+            return "translate(" + (xStep+d.x) + "," + d.y + ")"
+        })
+        linkArcs.style("stroke-width", function (d) {
+            return d.value;
+        });
         
-
-            nodeG.attr("transform", function(d) {
-                return "translate(" + (xStep+d.x) + "," + d.y + ")"
-            })
-            linkArcs.style("stroke-width", function (d) {
-                return d.value;
-            });
-         }   */
-         
-         /*
-        svg.selectAll(".layer")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.yearly[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return area(d.yearly); 
-            });
-        
-
-        svg.selectAll(".layerInfoVis")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.InfoVis[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return areaInfoVis(d.yearly); 
-            }); 
-         svg.selectAll(".layerVAST")
-            .attr("d", function(d) { 
-                for (var m=0; m<numYear; m++){
-                    d.VAST[m].yNode = d.y;     // Copy node y coordinate
-                }
-               return areaVAST(d.yearly); 
-            }); 
-
-        svg.selectAll(".layerSciVis")
-        .attr("d", function(d) { 
-            for (var m=0; m<numYear; m++){
-                d.SciVis[m].yNode = d.y;     // Copy node y coordinate
-            }
-           return areaSciVis(d.yearly); 
-        });        
-        */
 
         linkArcs.attr("d", linkArc);
-      //  if (force.alpha()<0.02)
-      //     force.stop();
+        //  if (force.alpha()<0.02)
+        //     force.stop();
+
+        updateTimeLegend();       
     } 
 
     function updateTransition(durationTime){
@@ -1386,90 +1330,45 @@ function mouseouted(d) {
            return "translate(" +d.xConnected + "," + d.y + ")"
         })
         
-        svg.selectAll(".linePNodes").remove();
-        linePNodes = svg.selectAll(".linePNodes")
-            .data(pNodes).enter().append("line").transition().delay(durationTime).duration(durationTime)
-            .attr("class", "linePNodes")
+        //svg.selectAll(".linePNodes").remove();
+        svg.selectAll(".linePNodes")
+            //.data(pNodes).enter().append("line")
+            .transition().duration(transTime)
             .attr("x1", function(d) {return xStep+xScale(d.minY);})
             .attr("y1", function(d) {return d.y;})
             .attr("x2", function(d) {return xStep+xScale(d.maxY);})
             .attr("y2", function(d) {return d.y;})
-            .style("stroke-width",0.2)
-            .style("stroke-opacity",1)
-            .style("stroke", "#000");       
-        
+            .style("stroke-opacity", function(d){
+               if (!isLensing)  return 1;
+               else{
+                if (listLensing[d.name])
+                    return 1;
+                else
+                    return 0.3;
+               }   
+            }); 
+       
+        svg.selectAll(".nodeText").attr("x", function(d) {return xStep+d.x;})
+                    .attr("y", function(d) {return d.y;});
+   
+        linkArcs.transition().duration(transTime)
+            .attr("d", linkArc)
+            .style("stroke-opacity", function(d){
+               if (!isLensing)  return 1;
+               else{
+                if (listLensing[d.source.name] && listLensing[d.target.name])
+                    return 1;
+                else
+                    return 0.1;
+               }   
+            });   
 
-        svg.selectAll(".layer").transition().duration(durationTime)
-          .attr("d", function(d) { 
-            for (var m=numYear-1; m>=0; m--){
-                d.yearly[m].yNode = d.y;     // Copy node y coordinate
-               // if (d.yearly[m].value==0)
-               //     d.yearly.splice(m,1);
-            }
-            
-        return area(d.yearly); }) ;
-        
-        svg.selectAll(".layerInfoVis").transition().duration(durationTime)
-            .attr("d", function(d) { 
-                for (var m=numYear-1; m>=0; m--){
-                    d.InfoVis[m].yNode = d.y; 
-               //     if (d.InfoVis[m].value==0)
-               //         d.InfoVis.splice(m,1);
-                        
-                }
-                return areaInfoVis(d.yearly); 
-            }) ;
-        svg.selectAll(".layerVAST").transition().duration(durationTime)
-            .attr("d", function(d) { 
-                for (var m=numYear-1; m>=0; m--){
-                    d.VAST[m].yNode = d.y;     // Copy node y coordinate
-               //      if (d.VAST[m].value==0)
-                //   d.VAST.splice(m,1);
-                }
-               
-          
-                return areaVAST(d.yearly); 
-            }) ;    
-
-        svg.selectAll(".layerSciVis").transition().duration(durationTime)
-            .attr("d", function(d) { 
-                for (var m=numYear-1; m>=0; m--){
-                    d.SciVis[m].yNode = d.y;     // Copy node y coordinate
-               //    if (d.SciVis[m].value==0)
-               //     d.SciVis.splice(m,1);
-                }
-                return areaSciVis(d.yearly); 
-            }) ;  
-        linkArcs.transition().duration(durationTime).attr("d", linkArc);     
+        updateTimeLegend();         
     }    
 
     function detactTimeSeries(){
-       // console.log("DetactTimeSeries ************************************" +data);
-        var termArray = [];
-        for (var i=0; i< numNode; i++) {
-            if (nodes[i].connect && nodes[i].connect.length>0){
-                var e =  {};
-                e.y = nodes[i].y;
-                e.nodeId = i;
-                termArray.push(e);
-            }
-        }
-        termArray.sort(function (a, b) {
-          if (a.y > b.y) {
-            return 1;
-          }
-          if (a.y < b.y) {
-            return -1;
-          }
-          return 0;
-        });  
-        console.log("pNodes.length="+pNodes.length);
-        var step = Math.min((height-12)/(termArray.length),13);
-        for (var i=0; i< termArray.length; i++) {
-            nodes[termArray[i].nodeId].y = 1+i*step;
-        }
-        force.stop();
-
+        console.log("DetactTimeSeries ************************************");
+        computeY_Scale();
         updateTransition(2000);
 }
 

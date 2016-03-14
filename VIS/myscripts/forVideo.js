@@ -682,5 +682,5 @@ var link3 = svg3.selectAll(".link3")
         .attr("y", function(d) { return d.y; });   
 
   });
-
 }
+

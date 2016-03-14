@@ -69,7 +69,9 @@ h3 {
 
 <!--!<button onclick="detactTimeSeries()">Unroll time series </button>!-->
 <input type="checkbox" id="checkbox1" value="checked" class="check" onclick="update()">
-<label for="checkbox1" >Area graph only</label>
+<label for="checkbox1">Area graph only</label>
+<input type="checkbox" id="checkbox2" value="0" class="check" onclick="groupSimilarNodes()">
+<label for="checkbox2">Group Similar vertex</label>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <input id="search">
 <button type="button" onclick="searchNode()">Search</button>
@@ -97,6 +99,8 @@ h3 {
 <script src="myscripts/stopList.js"></script>
 <script src="myscripts/main.js"></script>
 <script src="myscripts/forVideo.js"></script>
+<script src="myscripts/grouping.js"></script>
+<script src="myscripts/lensing.js"></script>
 <script type='text/javascript' src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
 <link href="styles/jquery-ui.css" rel="stylesheet" type="text/css" />
 
