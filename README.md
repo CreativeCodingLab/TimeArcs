@@ -17,7 +17,7 @@ In the blogs about Ferguson and Michael Brown in 2014, the name Trayvon Martin i
 ### Box C:
 Some relationships last for long period of time such as those between Edward Snowden and NSA. Viewers can lens into a period of time to see the details by mousing over the time axis. 
 
-[ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs1.png)
+![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs1.png)
 
 ### Finding Patterns in the IMDB Co-Star Network
 
