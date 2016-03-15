@@ -3,9 +3,9 @@ We collected 90,811 political blog posts over a ten-year period from 2005 to 201
 
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs2.png)
 
-Viewers can lens into a period of time to see the details by mousing over the time axis. 
+Viewers can lens into a period of time to see the details by mousing over the time axis. The following figure depicts lensing into 2013. 
 
-here](https://github.com/CreativeCodingLab/TimeArcs/tree/master/Text).
+![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs3.png)
 
 
 
