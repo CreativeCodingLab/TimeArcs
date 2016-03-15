@@ -65,7 +65,7 @@ var data, data2;
 var firstDate = Date.parse("2005-01-01T00:00:00");
 var numSecondADay = 24*60*60;
 var numSecondAMonth = 30*numSecondADay;
-var minYear = 2005;
+var minYear = 2006;
 var maxYear = 2015;
 var numMonth = 12*(maxYear-minYear);
 
@@ -559,7 +559,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         
        
     // Compute relationship **********************************************************
-        numNode = Math.min(110, termArray.length);
+        numNode = Math.min(100, termArray.length);
         numNode2 = Math.min(numNode*5, termArray.length);
         var selectedTerms = {};
         for (var i=0; i<numNode2;i++){
