@@ -8,13 +8,13 @@ We introduce *TimeArcs*, a novel visualization technique for representing the dy
 ### Exploring Topics and Events in Political Blogs
 The following image shows the top 100 terms in nearly 100,000 political blog posts in last 10 years. Terms are color-coded by category as depicted on the top left. Terms appears together in political blogs are brought closer and connected by arcs the thickness indicating their collocated frequency. 
 
-### Box A:
+**Box A: **
 Viewers can quickly see the major political event such as the Sandy Hook Elementary School shooting or the 2011 shooting by Jared Loughner. Notice that the two events happened in Tucson and hence both connected to this term. And this is why they are sitting closer on the vertical axis. 
 
-### Box B:
+**Box B: **
 In the blogs about Ferguson and Michael Brown in 2014, the name Trayvon Martin is often mentioned due to the similar nature of the two events. 
 
-### Box C:
+**Box C: **
 Some relationships last for long period of time such as those between Edward Snowden and NSA. Viewers can lens into a period of time to see the details by mousing over the time axis. 
 
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs1.png)
