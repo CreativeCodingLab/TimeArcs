@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 5};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 780 - margin.top - margin.bottom;
+var height = 1400 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -559,7 +559,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         
        
     // Compute relationship **********************************************************
-        numNode = Math.min(100, termArray.length);
+        numNode = Math.min(200, termArray.length);
         numNode2 = Math.min(numNode*5, termArray.length);
         var selectedTerms = {};
         for (var i=0; i<numNode2;i++){
