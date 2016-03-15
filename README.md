@@ -1,7 +1,10 @@
-# TimeArcs: Visualizing Fluctuations in Dynamic Networks
+# TimeArcs
 Please click to watch the overview video.
 
 [![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/VideoTeaser.png)](http://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/TimeArcs_Dang_EuroVis2016.mp4)
+
+We introduce *TimeArcs*, a novel visualization technique for representing the dynamic relationships between entities in a network. In many application domains, relationships between entities are not temporally stable, which means that cluster structures and cluster memberships also may vary across time. Our technique provides a big picture overview of the most significant clusters over time. *TimeArcs* also supports a range of interactive features, such as allowing users to drill-down in order to see details about a particular cluster. To highlight the benefits of this technique, we demonstrate its application to various datasets, including the IMDB co-star network, a dataset showing conflicting evidences within biomedical literature of protein interactions, and collocated popular phrases obtained from political blogs.  
+
 
 This work was funded by the DARPA Big Mechanism Program under ARO contract WF911NF-14-1-0395.
 
