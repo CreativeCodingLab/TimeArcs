@@ -3,8 +3,10 @@ The data is available on [IMDB website](http://www.imdb.com/interfaces). We went
 
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/VIS/images/IMDB2.png)
 
+Lensing tool is useful to focus on a sub-network of a larger network. Lensing can be applied on both X and Y axis. 
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/VIS/images/IMDB3.png)
 
+The following figure shows lensing into a different time period (on X axis) and lower part of the network (on Y axis).
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/VIS/images/IMDB4.png)
 
 
