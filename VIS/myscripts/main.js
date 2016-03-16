@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 10, bottom: 5, left: 10};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 800 - margin.top - margin.bottom;
+var height = 700 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -399,13 +399,13 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             var rating = parseFloat(d["Rating"]);
             var year = parseFloat(d["Year"]);
             var up = (year-minYear)/(maxYear-minYear);
-            if (rating>8.25+up/4){  //For IMDB ****************************************testing
+            //if (rating>8.25+up/4){  //For IMDB ****************************************testing
                 if (!searchTerm || searchTerm=="" ) {
                     return d;
                 }
                 else if (d[searchTerm])
                     return d;
-            }
+            //}
         });
 
 
@@ -578,7 +578,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
            // }
         });   
       
-        numNode = Math.min(2000, termArray.length);
+        numNode = Math.min(100, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -838,7 +838,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.25, 0.5])
+            .range([0.5, 0.75])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -881,12 +881,12 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("class", "nodeG")
          
         svg.selectAll(".nodeText").remove();
-        /*nodeG.append("text")
+        nodeG.append("text")
             .attr("class", ".nodeText")  
             .text(function(d) { return d.name })           
             .attr("dy", ".35em")
             .style("fill","#000000")
-            .style("fill-opacity",0)
+            .style("fill-opacity",1)
             .style("text-anchor","end")
             .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
@@ -894,7 +894,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("font-family", "sans-serif")
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
-                return d.isSearchTerm ? "9px" : "8px"; });*/
+                return d.isSearchTerm ? "10px" : "9px"; });
         
 
 
@@ -906,7 +906,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("y1", function(d) {return d.y;})
             .attr("x2", function(d) {return xStep+xScale(d.maxY);})
             .attr("y2", function(d) {return d.y;})
-            .style("stroke-width",0.2)
+            .style("stroke-width",0.5)
             .style("stroke-opacity",1)
             .style("stroke", "#000");  
 

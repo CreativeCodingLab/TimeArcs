@@ -11,10 +11,11 @@ function drawTimeLegend() {
     listX.push(obj);    
   }
 
+  console.log("listX="+listX);
   svg.selectAll(".timeLegendLine").data(listX)
     .enter().append("line")
       .attr("class", "timeLegendLine")
-      .style("stroke", "000") 
+      .style("stroke", "#000") 
       .style("stroke-dasharray", "1, 2")
       .style("stroke-opacity", 1)
       .style("stroke-width", 0.2)
@@ -48,6 +49,7 @@ function updateTimeLegend() {
     listX.push(obj);    
   }
 
+  console.log("update listX="+listX.length);
   svg.selectAll(".timeLegendLine").data(listX).transition().duration(transTime)
       .style("stroke-dasharray",  function(d,i){ 
         if (!isLensing)
@@ -254,9 +256,9 @@ function computeY_Scale() {
                 return d.isSearchTerm ? "9px" : "8px"; });
     }   
     else{ 
-        var step = Math.min((height-12)/(termArray.length),13);
+        var step = Math.min((height-22)/(termArray.length),13);
         for (var i=0; i< termArray.length; i++) {
-            nodes[termArray[i].nodeId].y = 1+i*step;
+            nodes[termArray[i].nodeId].y = 10+i*step;
         }
         force.stop();
     } 
