@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 10, bottom: 5, left: 10};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 700 - margin.top - margin.bottom;
+var height = 800 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -399,13 +399,13 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             var rating = parseFloat(d["Rating"]);
             var year = parseFloat(d["Year"]);
             var up = (year-minYear)/(maxYear-minYear);
-            //if (rating>8.25+up/4){  //For IMDB ****************************************testing
+            if (rating>8.25+up/4){  //For IMDB ****************************************testing
                 if (!searchTerm || searchTerm=="" ) {
                     return d;
                 }
                 else if (d[searchTerm])
                     return d;
-            //}
+            }
         });
 
 
@@ -466,7 +466,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         if (!searchTerm)
             numberInputTerms = termArray.length;
         
-       console.log("Finish ordering term by maxNet") ; 
+       console.log("Finish ordering terms: "+termArray.length) ; 
         
         
        
@@ -578,7 +578,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
            // }
         });   
       
-        numNode = Math.min(100, termArray.length);
+        numNode = Math.min(2000, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -677,61 +677,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
                 termMaxMax3 = pNodes[i].max;   
         }
         
-
        // drawStreamTerm(svg, pNodes, 100, 600);
-
-        
-
-        /*
-        svg.selectAll(".layerInfoVis").remove();
-        svg.selectAll(".layerInfoVis")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerInfoVis")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            //.style("stroke","#eeeeee")
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("InfoVis", d.max); 
-        }); 
-
-        svg.selectAll(".layerVAST").remove();
-        svg.selectAll(".layerVAST")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerVAST")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("VAST", d.max);
-        });    
-        
-        svg.selectAll(".layerSciVis").remove();
-        svg.selectAll(".layerSciVis")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layerSciVis")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#eeeeee"; })
-            .style("stroke-width",0)
-            .style("fill-opacity",1)
-            .style("fill", function(d, i) { 
-            return getColor("SciVis", d.max);
-
-        });  
-
-        svg.selectAll(".layer").remove();
-        svg.selectAll(".layer")
-            .data(pNodes)
-            .enter().append("path")
-            .attr("class", "layer")
-            .style("stroke", function(d) { return d.isSearchTerm ? "#000000" : "#aaa"; })
-            .style("stroke-width",0.5)
-            .style("stroke-opacity",function(d) { return d.isSearchTerm ? 0.5 : 0; })
-            .style("fill-opacity",0);
-        */
-
     }    
 
     function computeLinks() {
@@ -823,10 +769,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
                  pNodes.splice(i, 1);
             }    
         }
-        
-        
         console.log("pNodes.length="+pNodes.length);
-        
 
         var linearScale = d3.scale.linear()
             .range([0.3, 0.2])
@@ -838,7 +781,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.5, 0.75])
+            .range([0.2, 0.75])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -881,6 +824,8 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("class", "nodeG")
          
         svg.selectAll(".nodeText").remove();
+        
+        /*
         nodeG.append("text")
             .attr("class", ".nodeText")  
             .text(function(d) { return d.name })           
@@ -895,6 +840,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("font-size", function(d) { 
                 d.textSize = this.getComputedTextLength();    
                 return d.isSearchTerm ? "10px" : "9px"; });
+        */       
         
 
 
@@ -906,7 +852,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             .attr("y1", function(d) {return d.y;})
             .attr("x2", function(d) {return xStep+xScale(d.maxY);})
             .attr("y2", function(d) {return d.y;})
-            .style("stroke-width",0.5)
+            .style("stroke-width",0.2)
             .style("stroke-opacity",1)
             .style("stroke", "#000");  
 
@@ -1173,8 +1119,6 @@ function mouseouted(d) {
             .style("stroke-opacity" , 1);    
         svg.selectAll(".linePNodes")
             .style("stroke-opacity" , 1);    
-    
-
         nodeG.style("font-weight", "")  ;
         nodeG.transition().duration(500).attr("transform", function(n) {
             return "translate(" +n.xConnected + "," + n.y + ")"
@@ -1367,7 +1311,7 @@ function mouseouted(d) {
     }    
 
     function detactTimeSeries(){
-        console.log("DetactTimeSeries ************************************");
+        //console.log("DetactTimeSeries ************************************");
         computeY_Scale();
         updateTransition(2000);
 }

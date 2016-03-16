@@ -11,7 +11,6 @@ function drawTimeLegend() {
     listX.push(obj);    
   }
 
-  console.log("listX="+listX);
   svg.selectAll(".timeLegendLine").data(listX)
     .enter().append("line")
       .attr("class", "timeLegendLine")
@@ -49,7 +48,6 @@ function updateTimeLegend() {
     listX.push(obj);    
   }
 
-  console.log("update listX="+listX.length);
   svg.selectAll(".timeLegendLine").data(listX).transition().duration(transTime)
       .style("stroke-dasharray",  function(d,i){ 
         if (!isLensing)
