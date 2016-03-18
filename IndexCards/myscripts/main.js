@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 570 - margin.top - margin.bottom;
+var height = 810 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -17,13 +17,13 @@ var svg2 = d3.select("body").append("svg")
 var topTermMode = 0;
 
 //Set up the force layout
+//Set up the force layout
 var force = d3.layout.force()
-    .charge(-100)
-    .linkStrength(10)
-   // .linkDistance(0)
-    .gravity(0.02)
+    .charge(-10)
+    .linkDistance(0)
+    .gravity(0.0)
     //.friction(0.5)
-  //  .alpha(0.1)
+    .alpha(0.1)
     .size([width, height]);
 
 /*
@@ -68,7 +68,7 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 2002;
+var minYear = 2001;
 var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
@@ -87,8 +87,8 @@ var relationship;
 var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
-var xScale = d3.time.scale().range([0, (width-400)/numYear]);
-var xStep = 200;
+var xScale = d3.time.scale().range([0, (width-200)/numYear]);
+var xStep = 160;
 var yScale;
 var linkScale;
 //var searchTerm ="Munzner, T.";
@@ -247,29 +247,33 @@ d3.tsv("data/pcCombined3.tsv", function(error, data_) {
     //   force.linkStrength(100);
     
     
-  //  force.linkStrength(function(l) {
-  //      return (1+l.value*3);
-  //  });
+  force.linkStrength(function(l) {
+        if (l.value)
+            return (5+l.value*10);
+        else 
+            return 1;       
+    });
     
     force.linkDistance(function(l) {
         if (searchTerm!=""){
             if (l.source.name == searchTerm || l.target.name == searchTerm){
-                var order = isContainedInteger(listYear,l.m)
-                return (30*order);  
+                var order = isContainedInteger(listMonth,l.m)
+                return (12*order);  
             }    
             else
                 return 0;    
         }
         else{
-            if (l.count==1)
-                return 1; 
-            else if (l.count>1)
+            if (l.value)
                 return 0;
             else {
-                return 10;     
-            }          
+               debugger; 
+                  return 12; 
+            }
+                        
         }
     });
+
    //throw new Error("Something went badly wrong!");
     
     
@@ -655,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(100, termArray.length);
+        numNode = Math.min(400, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -848,7 +852,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.5, 1])
+            .range([0.4, 0.6])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -1544,7 +1548,7 @@ function mouseouted(d) {
           return 0;
         });  
 
-        var step = Math.min((height-20)/(numNode+1),11);
+        var step = Math.min((height-24)/(numNode+1),11);
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
@@ -1592,8 +1596,8 @@ function groupSimilarNodes(){
         });  
 
         // asign the Y position
-        var step = Math.min((height-20)/(array.length+1),6);
-        var currentY = 0;
+        var step = Math.min((height-20)/(numNode+1),6);
+        var currentY = 1;
         for (var i=0;i<array.length;i++){
             var n1 = array[i];
             n1.y = currentY+step;

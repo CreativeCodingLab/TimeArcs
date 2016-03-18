@@ -224,27 +224,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         else 
             return 1;       
     });
-    
-    force.linkDistance(function(l) {
-        if (searchTerm!=""){
-            if (l.source.name == searchTerm || l.target.name == searchTerm){
-                var order = isContainedInteger(listMonth,l.m)
-                return (12*order);  
-            }    
-            else
-                return 0;    
-        }
-        else{
-            if (l.value)
-                return 0;
-            else {
-               debugger; 
-                  return 12; 
-            }
-                        
-        }
-    });
-    
 
     force.linkDistance(function(l) {
         if (searchTerm!=""){
