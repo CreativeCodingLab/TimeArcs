@@ -22,9 +22,9 @@ The following image shows TimeArcs for the top 100 actors from [IMDB database](h
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/VIS/images/IMDB1.png)
 
 ### Evidence in Biological Pathway Literature
-The following image shows TimeArcs visualization for Pathway Commons index cards. Time axis goes from left (2000) to right (2014). An arc connects two proteins/complexes at a particular time (based on when the interaction was discovered/ publication year). The colors encode interaction types: green for adds_modification, red for removes_modification, blue for translocation, orange for binds, and pink for increases. A black (and usually thicker) arc indicates multiple interactions between two proteins/complexes which are discovered in the same year. More details and source codes can be found [here](https://github.com/CreativeCodingLab/TimeArcs/tree/master/VIS)
+The following image shows TimeArcs visualization for Pathway Commons index cards. Time axis goes from left (2000) to right (2014). An arc connects two proteins/complexes at a particular time (based on when the interaction was discovered/ publication year). The colors encode interaction types: green for adds_modification, red for removes_modification, blue for translocation, orange for binds, and pink for increases. A black (and usually thicker) arc indicates multiple interactions between two proteins/complexes which are discovered in the same year. More details and source codes can be found [here](https://github.com/CreativeCodingLab/TimeArcs/tree/master/IndexCards)
 
-![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/imagesForPCcards/summary.png)
+![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/IndexCards/images/PC1.png)
 
 
 This work was funded by the DARPA Big Mechanism Program under ARO contract WF911NF-14-1-0395.
