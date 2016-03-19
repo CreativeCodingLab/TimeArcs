@@ -14,7 +14,7 @@ For the same amount of data, we can use a force directed layout (without time el
 
 When there are multiple connections (arcs) between two proteins/complexes, it may falls into one of the two following circumstances: (1) If they have the same color (same interaction type), these are supporting evidences in different publications which confirm the interaction between two elements. (2) If they have the different colors (different interaction types), the latter evidence may adds more knowledge or conflicts the previous publication. We will show an example of each circumstances in the next Section.
  
-# Supporting evidences:
+#### Supporting evidences:
  In the following figure, we show TimeArcs visualization for interactions between PCAF complex and other elements (which were recorded by evidences in Pathway Commons index cards). In particular above PCAF timeline, we can see there are new evidences in 2013 supporting "PCAF binds p300 and KAT3A" which was first discovered in 2011. Similarly under PCAF timeline, there are 3 evidences supporting "PCAF binds MAML" in 2008, 2011, and 2013. Here are the details of these 3 evidences:
  
  ![ScreenShot](http://www.cs.uic.edu/~tdang/TimeArcs/imagesForPCcards/supporting.png).
@@ -35,7 +35,7 @@ The complete PC card can be downloaded [here](http://www.cs.uic.edu/~tdang/TimeA
 The complete PC card can be downloaded [here](http://www.cs.uic.edu/~tdang/TimeArcs/imagesForPCcards/supporting3.json).
 
 
-# Conflicting evidences:
+#### Conflicting evidences:
 
  In the following figure, we show TimeArcs visualization for interactions between OPSD protein and other elements. In particular, we can see there are a few conflicting evidences between 2003 and 2012 publications. We are going to show only one conflicting example where OPSD and K+ appear both in positive and negative regulations denoted as (1) and (2) in the following figure. 
  
