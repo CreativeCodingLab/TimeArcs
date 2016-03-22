@@ -659,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(400, termArray.length);
+        numNode = Math.min(200, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -1113,6 +1113,7 @@ function mouseoutedLink(l) {
 
 
 function mouseovered(d) {
+    if (force.alpha>0) return;
         var list = new Object();
         list[d.name] = new Object();
 

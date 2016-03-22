@@ -226,6 +226,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     });
 
     force.linkDistance(function(l) {
+        debugger;
         if (searchTerm!=""){
             if (l.source.name == searchTerm || l.target.name == searchTerm){
                 var order = isContainedInteger(listYear,l.m)
