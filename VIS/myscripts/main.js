@@ -379,7 +379,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             var rating = parseFloat(d["Rating"]);
             var year = parseFloat(d["Year"]);
             var up = (year-minYear)/(maxYear-minYear);
-            if (rating>8.25+up/4){  //For IMDB ****************************************testing
+            if (rating>8.2){  //For IMDB ****************************************testing
                 if (!searchTerm || searchTerm=="" ) {
                     return d;
                 }
@@ -558,7 +558,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
            // }
         });   
       
-        numNode = Math.min(2000, termArray.length);
+        numNode = Math.min(500, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -1102,7 +1102,6 @@ function mouseouted(d) {
         nodeG.style("font-weight", "")  ;
         nodeG.transition().duration(500).attr("transform", function(n) {
             return "translate(" +n.xConnected + "," + n.y + ")"
-            
         })   
     }      
 }
@@ -1268,7 +1267,7 @@ function mouseouted(d) {
                 if (listLensing[d.name])
                     return 1;
                 else
-                    return 0.3;
+                    return 0.5;
                }   
             }); 
        
