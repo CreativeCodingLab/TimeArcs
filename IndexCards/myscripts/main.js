@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 810 - margin.top - margin.bottom;
+var height = 816 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -659,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(200, termArray.length);
+        numNode = Math.min(115, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -852,7 +852,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.4, 0.6])
+            .range([0.5, 0.6])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -924,7 +924,7 @@ node2.append("title")
             .attr("y1", function(d) {return d.y;})
             .attr("x2", function(d) {return xStep+xScale(d.maxY);})
             .attr("y2", function(d) {return d.y;})
-            .style("stroke-width",0.2)
+            .style("stroke-width",0.4)
             .style("stroke", "#000"); 
 
 
@@ -1531,7 +1531,7 @@ function mouseouted(d) {
     function detactTimeSeries(){
        // console.log("DetactTimeSeries ************************************" +data);
         nodeG.selectAll(".nodeText")
-            .attr("font-size", "8px");
+            .attr("font-size", "10px");
         var termArray = [];
         for (var i=0; i< numNode; i++) {
             var e =  {};
