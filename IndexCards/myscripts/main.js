@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 816 - margin.top - margin.bottom;
+var height = 820 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -68,8 +68,8 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 2001;
-var maxYear = 2015;
+var minYear = 2002;
+var maxYear = 2014;
 var numYear = (maxYear-minYear)+1;
 
 var sourceList = {};
@@ -87,8 +87,8 @@ var relationship;
 var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
-var xScale = d3.time.scale().range([0, (width-200)/numYear]);
-var xStep = 160;
+var xScale = d3.time.scale().range([0, (width-300)/numYear]);
+var xStep = 200;
 var yScale;
 var linkScale;
 //var searchTerm ="Munzner, T.";
@@ -659,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(115, termArray.length);
+        numNode = Math.min(150, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
@@ -1531,7 +1531,7 @@ function mouseouted(d) {
     function detactTimeSeries(){
        // console.log("DetactTimeSeries ************************************" +data);
         nodeG.selectAll(".nodeText")
-            .attr("font-size", "10px");
+            .attr("font-size", "8px");
         var termArray = [];
         for (var i=0; i< numNode; i++) {
             var e =  {};
