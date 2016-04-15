@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 820 - margin.top - margin.bottom;
+var height = 1350 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -69,7 +69,7 @@ var node_drag = d3.behavior.drag()
 var data, data2;
 
 var minYear = 2002;
-var maxYear = 2014;
+var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
 var sourceList = {};
@@ -659,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(150, termArray.length);
+        numNode = Math.min(250, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){
