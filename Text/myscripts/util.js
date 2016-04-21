@@ -120,7 +120,7 @@ function drawTimeLegend() {
       .style("stroke-dasharray", "1, 2")
       .style("stroke-opacity", 1)
       .style("stroke-width", 0.2)
-      .attr("x1", function(d){ console.log("xx2="+xx); return d.x; })
+      .attr("x1", function(d){ return d.x; })
       .attr("x2", function(d){ return d.x; })
       .attr("y1", function(d){ return 0; })
       .attr("y2", function(d){ return height; });
@@ -191,7 +191,6 @@ function updateTimeLegend() {
         }
       }) 
       .attr("x", function(d,i){ 
-        console.log("i="+i+" d.x="+d.x+" d.year="+d.year);
         return d.x; });  
 }
 
@@ -244,7 +243,6 @@ function updateTimeBox(durationTime){
         return maxY+21;   
     })
     .attr("x", function(d,i){ 
-      console.log("i="+i+" d.x="+d.x+" d.year="+d.year);
       return d.x; });   
 }
 

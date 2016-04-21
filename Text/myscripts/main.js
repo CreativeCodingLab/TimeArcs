@@ -556,7 +556,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
        console.log("numberInputTerms="+numberInputTerms) ; 
  
     // Compute relationship **********************************************************
-        numNode = Math.min(120, termArray.length);
+        numNode = Math.min(100, termArray.length);
         numNode2 = Math.min(numNode*5, termArray.length);
         var selectedTerms = {};
         for (var i=0; i<numNode2;i++){
