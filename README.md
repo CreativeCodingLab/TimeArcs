@@ -17,7 +17,7 @@ The following image shows the top 100 terms in nearly 100,000 political blog pos
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/Text/images/PoliticalBlogs1.png)
 
 ### Finding Patterns in the IMDB Co-Star Network
-The following image shows TimeArcs visualization for the top 100 actors from [IMDB database](http://www.imdb.com/interfaces) in movies rated 8 stars or higher from 1955 to 2014. Arcs connect co-actors in the same movies and color-coded by movie genres: green for comedy, red for action, blue for drama. More examples and source codes can be found [here](https://github.com/CreativeCodingLab/TimeArcs/tree/master/VIS) or [online demo](http://www2.cs.uic.edu/~tdang/TimeArcs/IMDB/).
+The following image shows TimeArcs visualization for the top 100 actors from [IMDB database](http://www.imdb.com/interfaces) in movies rated 8 stars or higher from 1955 to 2014. Arcs connect co-actors in the same movies and color-coded by movie genres: green for comedy, red for action, blue for drama. More examples and source codes can be found [here](https://github.com/CreativeCodingLab/TimeArcs/tree/master/IMDB) or [online demo](http://www2.cs.uic.edu/~tdang/TimeArcs/IMDB/).
 
 ![ScreenShot](https://github.com/CreativeCodingLab/TimeArcs/blob/master/IMDB/images/IMDB1.png)
 
