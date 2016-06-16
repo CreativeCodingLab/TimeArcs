@@ -86,28 +86,11 @@ h3 {
   text-align: center;
 }
 
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
+
 
 </style>
 <body>
 
-<!--!<button onclick="detactTimeSeries()">Unroll time series </button>!-->
-<input type="checkbox" id="checkbox1" value="0" class="check" onclick="groupSimilarNodes()">
-<label for="checkbox1" >Group similar nodes</label>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<input id="search">
-<button type="button" onclick="searchNode()">Search</button>
-
-<progress value="0" max="100" id="progBar">
-    <span id="downloadProgress">
-        <!-- Your fallback goes here -->
-    </span>
-</progress>
 <label id="progUpdate">
     <!-- Success Message -->
 </label>

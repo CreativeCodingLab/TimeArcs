@@ -4,41 +4,49 @@ var diameter = 1000,
 
 var typeList = ["Field A","Field B"]  
 function drawColorLegend() {
-  var xx = 10;
-  var y1 = 13;    
-  svg.selectAll(".arcLegend").data(typeList).enter()
-  .append("path")
-    .attr("class", "arcLegend")
-    .style("fill-opacity", 0)
-    .style("stroke-width", 2)
-    .style("stroke", function (d) {
-        return getColor(d);
-    })
-    .attr("d", function(l,i){
-      var yy = y1+14*i-10;
-      var rr = 5.6;
-      return "M" + xx + "," + yy + "A" + rr + "," + rr*1.25 + " 0 0,1 " + xx + "," + (yy+rr*2);
-    });    
-  svg.selectAll(".textLegend").data(typeList).enter()
+  var x1 = [xStep*0.32,xStep*0.27];
+  var y1 = [35,45+xStep*0.6];
+
+   svg.selectAll(".textLegend").data(typeList).enter()
     .append("text")
       .attr("class", "textLegend")
-      .attr("x", xx+8)
+      .attr("x", function(l,i){
+        return x1[i]+11;
+      })
       .attr("y", function(l,i){
-         var yyy = (y1+14*i);
-         console.log(xx+" yyy="+yyy+" i="+i);
-       
-        return yyy;
+        var yyy = y1[i];
+        return yyy+13;
       })
       .text(function (d) {
-        console.log("d="+d);
         return d;
       })
       .attr("font-family", "sans-serif")
-      .attr("font-size", "12px")
+      .attr("font-size", "16px")
       .style("text-anchor", "left")
+      .style("font-weight", "bold")
       .style("fill", function (d) {
         return getColor(d);
       }); 
+
+  svg.append("line")
+    .attr("class", "nodeLineLegend")  
+    .attr("x1", function(d) { return xStep; })
+    .attr("y1", function(d) { return 8; })
+    .attr("x2", function(d) { return xStep+xScale(30); })
+    .attr("y2", function(d) { return 8; })
+    .style("stroke-width",5)
+    .style("stroke-opacity",0.28)
+    .style("stroke", "#000");   
+  
+  svg.append("text")
+      .attr("class", "textLegend")
+      .attr("x", xStep+xScale(30)+2)
+      .attr("y", 13)
+      .text("Playing time")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "12px")
+      .style("text-anchor", "left")
+      .style("fill", "#555");         
 }
 
 
@@ -56,25 +64,44 @@ function drawTimeLegend() {
       .attr("x1", function(d){ return xx; })
       .attr("x2", function(d){ return xx; })
       .attr("y1", function(d){ return 0; })
-      .attr("y2", function(d){ return height; });
+      .attr("y2", function(d){ return height/3; });
      svg.append("text")
       .attr("class", "timeLegend")
       .style("fill", "#000")   
       .style("text-anchor","start")
       .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
       .attr("x", xx)
-      .attr("y", height-5)
+      .attr("y", height/3-5)
       .attr("dy", ".21em")
       .attr("font-family", "sans-serif")
       .attr("font-size", "12px")
-      .text(function(d) { return i/60 });  
+      .style("font-weight", "bold")  
+      .text(function(d) { 
+        var time = i/60 ;
+        if (time<12)
+          return time+"am";
+        if (time==12)
+          return time+"pm";
+        else
+          return (time-12)+"pm";   
+      });  
   }
+   svg.append("text")
+      .attr("class", "text222")
+      .attr("x", xStep)
+      .attr("y", height/3+20)
+      .text("Sunday, June 19th, 2016")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "13px")
+      .style("text-anchor", "left")
+      .style("fill", "#555")
+      .style("font-weight", "bold"); 
 }  
 
 function getColor(category) {
   var sat = 200;
   if (category=="Field A")
-    return "#0a0"
+    return "#d00"
   else if (category=="Field B")
     return "#00f"
   else{
