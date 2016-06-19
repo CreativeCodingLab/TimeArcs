@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.nodeText {
+  background: #91877b;
+  text-shadow: 0 11px 10 rgba(255, 255, 255, 1);
+}
+
+.node {
+    stroke: #fff;
+    stroke-width: 1px;
+    stroke-opacity: 0.6;
+}
+.link {
+    stroke: #555;
+    stroke-opacity: .9;
+}
+.linkArc {
+  fill: none;
+  stroke: #000;
+}
+
+.node text {
+  font: 9px helvetica;
+}
+
+<!-- For the slider -->
+.axis {
+  font: 5 sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.axis .domain {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .25;
+  stroke-width: 5px;
+  stroke-linecap: round;
+}
+
+.axis .halo {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+.slider .handle {
+  fill: #666;
+  stroke: #000;
+  stroke-opacity: .25;
+  stroke-width: 1px;
+  cursor: crosshair;
+}
+
+
+h3 {
+    color: #1ABC9C;
+    text-align:center;  
+    font-style: italic;
+    font-size: 14px;
+    font-family: "Helvetica";
+}
+
+/* tooltip */
+.d3-tip {
+  line-height: 1;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 8px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+
+
+</style>
+<body>
+
+<label id="progUpdate">
+    <!-- Success Message -->
+</label>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<!--<script src="javascripts/d3.v3.min.js"></script>  -->
+<script src="javascripts/fisheye.js"></script>
+
+<script src="myscripts/util.js"></script>
+<script src="myscripts/sliderRelationship.js"></script>
+<script src="myscripts/sliderRadius.js"></script>
+<script src="myscripts/streamGraph.js"></script>
+<script src="myscripts/main.js"></script>
+
+<script type='text/javascript' src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
+<link href="styles/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+<script src="myscripts/searchBox.js"></script>
+</body>
