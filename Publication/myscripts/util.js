@@ -7,6 +7,7 @@ function drawColorLegend() {
   var x1 = [xStep*0.32,xStep*0.27];
   var y1 = [35,45+xStep*0.6];
 
+/*
    svg.selectAll(".textLegend").data(typeList).enter()
     .append("text")
       .attr("class", "textLegend")
@@ -27,26 +28,7 @@ function drawColorLegend() {
       .style("fill", function (d) {
         return getColor(d);
       }); 
-
-  svg.append("line")
-    .attr("class", "nodeLineLegend")  
-    .attr("x1", function(d) { return xStep; })
-    .attr("y1", function(d) { return 8; })
-    .attr("x2", function(d) { return xStep+xScale(30); })
-    .attr("y2", function(d) { return 8; })
-    .style("stroke-width",5)
-    .style("stroke-opacity",0.28)
-    .style("stroke", "#000");   
-  
-  svg.append("text")
-      .attr("class", "textLegend")
-      .attr("x", xStep+xScale(30)+2)
-      .attr("y", 13)
-      .text("Playing time")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "12px")
-      .style("text-anchor", "left")
-      .style("fill", "#555");         
+   */    
 }
 
 
@@ -54,7 +36,7 @@ function removeColorLegend() {
  svg.selectAll(".nodeLegend").remove();
 }
 function drawTimeLegend() {
-  for (var i=minYear; i<maxYear;i=i+60){
+  for (var i=minYear; i<maxYear;i++){
     var xx = xStep+xScale((i-minYear));
     svg.append("line")
       .style("stroke", "#00a")
@@ -76,26 +58,8 @@ function drawTimeLegend() {
       .attr("font-family", "sans-serif")
       .attr("font-size", "12px")
       .style("font-weight", "bold")  
-      .text(function(d) { 
-        var time = i/60 ;
-        if (time<12)
-          return time+"am";
-        if (time==12)
-          return time+"pm";
-        else
-          return (time-12)+"pm";   
-      });  
+      .text(i);  
   }
-   svg.append("text")
-      .attr("class", "text222")
-      .attr("x", xStep)
-      .attr("y", height/3+20)
-      .text("Sunday, June 19th, 2016")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "13px")
-      .style("text-anchor", "left")
-      .style("fill", "#555")
-      .style("font-weight", "bold"); 
 }  
 
 function getColor(category) {

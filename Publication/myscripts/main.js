@@ -68,8 +68,8 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 9*60;
-var maxYear = 20*60;
+var minYear = 2008;
+var maxYear = 2017;
 var numYear = (maxYear-minYear)+1;
 
 var sourceList = {};
@@ -143,39 +143,9 @@ var numberInputTerms =0;
 var listYear = [];
 
 
-function filterTimeFormat(time) {
-
-    // Number of decimal places to round to
-    var decimal_places = 2;
-
-    // Maximum number of hours before we should assume minutes were intended. Set to 0 to remove the maximum.
-    var maximum_hours = 15;
-
-    // 3
-    var int_format = time.match(/^\d+$/);
-
-    // 1:15
-    var time_format = time.match(/([\d]*):([\d]+)/);
-
-    // 10m
-    var minute_string_format = time.toLowerCase().match(/([\d]+)m/);
-
-    // 2h
-    var hour_string_format = time.toLowerCase().match(/([\d]+)h/);
-
-    hours = parseInt(time_format[1]*60);
-    minutes = parseFloat(time_format[2]);
-    time = hours + minutes;
-   
-
-    // make sure what ever we return is a 2 digit float
-    time = parseFloat(time).toFixed(decimal_places);
-
-    return time;
-}
 
 
-d3.tsv("data/league.tsv", function(error, data_) {
+d3.tsv("data/publication.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
     
@@ -183,7 +153,7 @@ d3.tsv("data/league.tsv", function(error, data_) {
     termMaxMax = 1;
     var cccc = 0;
     data.forEach(function(d) {
-        var year = filterTimeFormat(d["Time"])-minYear;
+        var year = parseInt(d["Time"])-minYear;
         console.log("Time="+year);
     
         d.year = year;
@@ -191,7 +161,7 @@ d3.tsv("data/league.tsv", function(error, data_) {
             
         numberInputTerms++;
              
-        var list = d["Teams"].split(" vs. ");
+        var list = d["Authors"].split(",");
         cccc++;
         for (var i=0; i<list.length;i++){
             var term = list[i];
@@ -542,7 +512,7 @@ node2.append("title")
         ttt ={};
         data2.forEach(function(d) { 
             var year = d.year;
-            var list = d["Teams"].split(" vs. ");
+            var list = d["Authors"].split(",");
             for (var i=0; i<list.length;i++){
                 var term1 = list[i];
                 for (var j=0; j<list.length;j++){
@@ -842,7 +812,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([3, 6])
+            .range([1, 4])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -896,51 +866,7 @@ node2.append("title")
             .attr("font-family", "sans-serif")
             .attr("font-size", "14px");
 
-
-        svg.selectAll(".nodeLine").remove();
-        svg.selectAll(".nodeLine")
-            .data(nodes).enter()
-            .append("line")
-            .attr("class", "nodeLine")  
-            .attr("x1", function(d) { return d.x; })
-            .attr("y1", function(d) { return d.y; })
-            .attr("x2", function(d) { return d.x+xScale(70); })
-            .attr("y2", function(d) { return d.y; })
-            .style("stroke-width",1)
-            .style("stroke-opacity",0.5)
-            .style("stroke", "#000");   
-                
-        svg.selectAll(".nodeLine1").remove();
-        svg.selectAll(".nodeLine1")
-            .data(nodes).enter()
-            .append("line")
-            .attr("class", "nodeLine1")  
-            .attr("x1", function(d) { return d.x; })
-            .attr("y1", function(d) { return d.y; })
-            .attr("x2", function(d) { return d.x+xScale(30); })
-            .attr("y2", function(d) { return d.y; })
-            .style("stroke-width",5)
-            .style("stroke-opacity",0.25)
-            .style("stroke", "#000");   
-
-        svg.selectAll(".nodeLine2").remove();
-        svg.selectAll(".nodeLine2")
-            .data(nodes).enter()
-            .append("line")
-            .attr("class", "nodeLine2")  
-            .attr("x1", function(d) { return d.x+xScale(40); })
-            .attr("y1", function(d) { return d.y; })
-            .attr("x2", function(d) { return d.x+xScale(40+30); })
-            .attr("y2", function(d) { return d.y; })
-            .style("stroke-width",5)
-            .style("stroke-opacity",0.25)
-            .style("stroke", "#000");           
-
-        nodeG.on('mouseover', mouseovered)
-               .on("mouseout", mouseouted); 
     
-
-
 
         // Horizontal lines
         svg.selectAll(".linePNodes").remove();
@@ -1036,7 +962,7 @@ function mouseoveredLink(l) {
         data2.forEach(function(d) { 
             var year = d.year;
             if (year==l.m){
-                var list = d["Teams"].split(" vs. ");
+                var list = d["Authors"].split(",");
                 for (var i=0; i<list.length;i++){
                     if (term1==list[i]){
                         for (var j=0; j<list.length;j++){
@@ -1103,28 +1029,6 @@ function mouseoveredLink(l) {
               return 0.05;  
             }); 
 
-         svg.selectAll(".nodeLine").style("stroke-opacity" , function(n) {  
-            if ((n.name== term1 || n.name== term2) 
-                && list[term1].year == n.year)
-                return 1;
-            else
-              return 0.01;  
-            }); 
-        svg.selectAll(".nodeLine1").style("stroke-opacity" , function(n) {  
-            if ((n.name== term1 || n.name== term2) 
-                && list[term1].year == n.year)
-                return 0.25;
-            else
-              return 0.05;  
-            }); 
-        svg.selectAll(".nodeLine2").style("stroke-opacity" , function(n) {  
-            if ((n.name== term1 || n.name== term2) 
-                && list[term1].year == n.year)
-                return 0.25;
-            else
-              return 0.05;  
-            });      
-
          nodeG.transition().duration(500).attr("transform", function(n) {
                 if (n.name== term1 || n.name== term2){
                     var newX =xStep+xScale(l.m);
@@ -1147,12 +1051,6 @@ function mouseoutedLink(l) {
         })  
         svg.selectAll(".linePNodes")
             .style("stroke-opacity", 1);  
-        svg.selectAll(".nodeLine")
-            .style("stroke-opacity" , 1);    
-        svg.selectAll(".nodeLine1")
-            .style("stroke-opacity" , 0.25);    
-        svg.selectAll(".nodeLine2")
-            .style("stroke-opacity" , 0.25);    
              
     }
 }   
@@ -1208,32 +1106,7 @@ function mouseovered(d) {
                 return 0.01;  
          });
 
-        svg.selectAll(".nodeLine")
-            .style("stroke-opacity" , function(n) {  
-                if (d.name==n.name)
-                   return 1;
-                else if (list[n.name] && list[n.name].year==n.year)
-                   return 1; 
-                return 0.01;  
-         });
-
-         svg.selectAll(".nodeLine1")
-            .style("stroke-opacity" , function(n) {  
-                if (d.name==n.name)
-                   return 0.25;
-                else if (list[n.name] && list[n.name].year==n.year)
-                   return 0.25; 
-                return 0.01;  
-         });
-         
-          svg.selectAll(".nodeLine2")
-            .style("stroke-opacity" , function(n) {  
-                if (d.name==n.name)
-                   return 0.25;
-                else if (list[n.name] && list[n.name].year==n.year)
-                   return 0.25; 
-                return 0.01;  
-         });    
+        
     
 
         nodeG.style("fill-opacity" , function(n) {  
@@ -1271,14 +1144,7 @@ function mouseouted(d) {
         svg.selectAll(".linkArc")
             .style("stroke-opacity" , 1);    
         svg.selectAll(".linePNodes")
-            .style("stroke-opacity" , 1);    
-        svg.selectAll(".nodeLine")
-            .style("stroke-opacity" , 1);    
-        svg.selectAll(".nodeLine1")
-            .style("stroke-opacity" , 0.25);    
-        svg.selectAll(".nodeLine2")
-            .style("stroke-opacity" , 0.25);    
-                
+            .style("stroke-opacity" , 1);            
 
         nodeG.style("font-weight", "")  ;
         nodeG.transition().duration(500).attr("transform", function(n) {
@@ -1447,23 +1313,6 @@ function mouseouted(d) {
             .text(function(d) { return d.name; })
             .attr("dy", "3px"); 
 
-        svg.selectAll(".nodeLine").transition().duration(durationTime)
-            .attr("x1", function(d) {return xStep+d.x;})
-            .attr("y1", function(d) {return d.y;})
-            .attr("x2", function(d) {return xStep+d.x+xScale(70);})
-            .attr("y2", function(d) {return d.y;});          
-        svg.selectAll(".nodeLine1").transition().duration(durationTime)
-            .attr("x1", function(d) {return xStep+d.x;})
-            .attr("y1", function(d) {return d.y;})
-            .attr("x2", function(d) {return xStep+d.x+xScale(30);})
-            .attr("y2", function(d) {return d.y;});          
-        svg.selectAll(".nodeLine2").transition().duration(durationTime)
-            .attr("x1", function(d) {return xStep+d.x+xScale(40);})
-            .attr("y1", function(d) {return d.y;})
-            .attr("x2", function(d) {return xStep+d.x+xScale(40+30);})
-            .attr("y2", function(d) {return d.y;});          
-        
-        
         
         svg.selectAll(".layer").transition().duration(durationTime)
           .attr("d", function(d) { 
