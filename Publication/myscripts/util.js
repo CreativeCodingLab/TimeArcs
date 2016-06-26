@@ -64,10 +64,12 @@ function drawTimeLegend() {
 
 function getColor(category) {
   var sat = 200;
-  if (category=="Field A")
-    return "#d00"
-  else if (category=="Field B")
-    return "#00f"
+  if (category=="C")
+    return "#66c2a5"
+  else if (category=="J")
+    return "#fc8d62"
+  else if (category=="W")
+    return "#e78ac3"
   else{
     return "#000000";    
   }

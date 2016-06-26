@@ -19,9 +19,9 @@ var topTermMode = 0;
 //Set up the force layout
 //Set up the force layout
 var force = d3.layout.force()
-    .charge(-10)
+    .charge(-20)
     .linkDistance(40)
-    .gravity(0.1)
+    .gravity(0.02)
     //.friction(0.5)
     .alpha(0.1)
     .size([width, height/3]);
@@ -222,24 +222,17 @@ d3.tsv("data/publication.tsv", function(error, data_) {
     });
     console.log("DONE reading the input file = "+data.length)
       
-
-    
-     
-    console.log("DONE computing yearly sources")
-   
-
-    //readTermsAndRelationships("p__saddam hussein");
-    
     readTermsAndRelationships();
     computeNodes();
     computeLinks();
-
-    //Creates the graph data structure out of the json data
-    //   force.linkStrength(100);
+ 
+   force.linkStrength(function(l) {
+        return 0.1;       
+    });
     
-    
-  
-    
+    force.linkDistance(function(l) {
+        return (20*(l.m-1));  
+    });
     
     /// The second force directed layout ***********
     for (var i=0;i<nodes.length;i++){
@@ -338,7 +331,7 @@ d3.tsv("data/publication.tsv", function(error, data_) {
         .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
         .attr("dy", ".21em")
         .attr("font-family", "sans-serif")
-        .attr("font-size", "14px"); 
+        .attr("font-size", "12px"); 
 
 
 
@@ -528,12 +521,12 @@ node2.append("title")
                         relationship[term1+"__"+term2][year] = 1;
                   //      rrr[term1+"__"+term2][year] = {};
                         ttt[term1+"__"+term2][year] = [];
-                        ttt[term1+"__"+term2][year].push(d["Location"]);
+                        ttt[term1+"__"+term2][year].push(d["Code"]);
                     }    
                     else{
                       //  if (!rrr[term1+"__"+term2][year][d["Conference"]+"**"+d["Title"].substring(0,10)]){
                             relationship[term1+"__"+term2][year]++;
-                            ttt[term1+"__"+term2][year].push(d["Location"]);
+                            ttt[term1+"__"+term2][year].push(d["Code"]);
                         
                             if (relationship[term1+"__"+term2][year]>relationship[term1+"__"+term2].max){
                                 relationship[term1+"__"+term2].max = relationship[term1+"__"+term2][year];
@@ -727,7 +720,7 @@ node2.append("title")
             var term1 =  nodes[i].name;
             for (var j=i+1; j<numNode;j++){
                 var term2 =  nodes[j].name;
-                if (relationship[term1+"__"+term2] && relationship[term1+"__"+term2].max>=valueSlider){
+                if (relationship[term1+"__"+term2] && (term1=="Tuan Dang" || term2=="Tuan Dang" )){
                     var ordering =0;
                     for (var m=1; m<numYear;m++){
                         if (relationship[term1+"__"+term2][m] && relationship[term1+"__"+term2][m]>=valueSlider){
@@ -812,7 +805,7 @@ node2.append("title")
             .range([0, hhh/200])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([1, 4])
+            .range([1.2, 4])
             .domain([1, Math.max(relationshipMaxMax2,2)]);  
 
         links.forEach(function(l) { 
@@ -864,7 +857,7 @@ node2.append("title")
             .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
             .attr("font-family", "sans-serif")
-            .attr("font-size", "14px");
+            .attr("font-size", "12px");
 
     
 
@@ -884,7 +877,6 @@ node2.append("title")
 
 
          // This is for linkDistance
-        // console.log("gggg**************************"+searchTerm);
         listYear = [];
         links.forEach(function(l) { 
             if (searchTerm!=""){
@@ -969,9 +961,9 @@ function mouseoveredLink(l) {
                             if (term2==list[j]){
                                 if (!listBoth[d.Title.substring(0,10)+"**"+d.Conference]){
                                     listCardId.push(d["CardId"]);
-                                    listEvidence.push(d.Title+":  "+d["Teams"]);
+                                    listEvidence.push(d.Title+".  "+d["Authors"]);
                                     listTilte.push(d.Evidence);
-                                    listType.push(d["Location"]);
+                                    listType.push(d["Id"]);
                                     listBoth[d.Title.substring(0,10)+"**"+d.Conference] =1;
                                 }
                             }    
@@ -999,7 +991,7 @@ function mouseoveredLink(l) {
                 .attr("class", "linkTilte")
                 .attr("x", x3)
                 .attr("y", y3)
-                .text(listEvidence[i]+ " at "+listType[i])
+                .text(listEvidence[i]+ " "+listType[i])
                 .attr("dy", ".21em")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "12px")
@@ -1361,7 +1353,7 @@ function mouseouted(d) {
     function detactTimeSeries(){
        // console.log("DetactTimeSeries ************************************" +data);
         nodeG.selectAll(".nodeText")
-            .attr("font-size", "14px");
+            .attr("font-size", "12px");
         var termArray = [];
         for (var i=0; i< numNode; i++) {
             var e =  {};
@@ -1379,7 +1371,7 @@ function mouseouted(d) {
           return 0;
         });  
 
-        var step = 17;
+        var step = 15;
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
             nodes[termArray[i].nodeId].y = (height/3-totalH)/2+ i*step;
