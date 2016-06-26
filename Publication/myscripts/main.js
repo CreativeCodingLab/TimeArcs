@@ -88,10 +88,9 @@ var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
 var xScale = d3.time.scale().range([0, (width-400)/numYear]);
-var xStep = 420;
+var xStep = 220;
 var yScale;
 var linkScale;
-//var searchTerm ="Munzner, T.";
 var searchTerm ="";
 
 
@@ -935,17 +934,7 @@ node2.append("title")
             .attr("y2", function(d) { return d.y; })
             .style("stroke-width",5)
             .style("stroke-opacity",0.25)
-            .style("stroke", "#000");       
-
-        svg.append("image")
-          .attr("xlink:href", "images/HamlinField.jpg")
-          .attr("x", "0px")
-          .attr("y", "0px")
-          .attr("width", xStep*0.9+"px")
-          .attr("height", (xStep*0.9*1.5)+"px");
-                  
-
-    
+            .style("stroke", "#000");           
 
         nodeG.on('mouseover', mouseovered)
                .on("mouseout", mouseouted); 
