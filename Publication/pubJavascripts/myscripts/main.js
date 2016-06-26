@@ -1,7 +1,7 @@
 //Constants for the SVG
 var margin = {top: 0, right: 0, bottom: 5, left: 15};
 var width = document.body.clientWidth - margin.left - margin.right;
-var height = 750 - margin.top - margin.bottom;
+var height = 200 - margin.top - margin.bottom;
 
 //---End Insert------
 
@@ -19,12 +19,12 @@ var topTermMode = 0;
 //Set up the force layout
 //Set up the force layout
 var force = d3.layout.force()
-    .charge(-20)
+    .charge(-40)
     .linkDistance(40)
     .gravity(0.02)
     //.friction(0.5)
     .alpha(0.1)
-    .size([width, height/3]);
+    .size([width, height]);
 
 /*
  var force = cola.d3adaptor()
@@ -87,8 +87,8 @@ var relationship;
 var termMaxMax, termMaxMax2, termMaxMax3;
 var terms;
 var NodeG; 
-var xScale = d3.time.scale().range([0, (width-400)/numYear]);
-var xStep = 220;
+var xScale = d3.time.scale().range([0, (width-100)/numYear]);
+var xStep = 100;
 var yScale;
 var linkScale;
 var searchTerm ="";
@@ -145,7 +145,7 @@ var listYear = [];
 
 
 
-d3.tsv("data/publication.tsv", function(error, data_) {
+d3.tsv("pubJavascripts/publication.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
     
@@ -226,12 +226,12 @@ d3.tsv("data/publication.tsv", function(error, data_) {
     computeNodes();
     computeLinks();
  
-   force.linkStrength(function(l) {
-        return 0.1;       
-    });
+   //force.linkStrength(function(l) {
+   //     return 0.1;       
+   // });
     
     force.linkDistance(function(l) {
-        return (20*(l.m-1));  
+        return (10*(l.m-1));  
     });
     
     /// The second force directed layout ***********
@@ -1188,10 +1188,10 @@ function mouseouted(d) {
             //if (searchTerm!="")
             //    d.x += (width/2-d.x)*0.02;
             //else
-                d.x += (width/2-d.x)*0.01;
+                d.x += (width/2-d.x)*0.005;
                      
             if  (d.parentNode>=0){
-                d.y += (nodes[d.parentNode].y- d.y)*0.2;
+                d.y += (nodes[d.parentNode].y- d.y)*0.1;
             } 
             else if (d.childNodes){
                 var yy = 0;
@@ -1374,7 +1374,7 @@ function mouseouted(d) {
         var step = 15;
         var totalH = termArray.length*step;
         for (var i=0; i< termArray.length; i++) {
-            nodes[termArray[i].nodeId].y = (height/3-totalH)/2+ i*step;
+            nodes[termArray[i].nodeId].y = (height-totalH)/2+ i*step;
         }
         force.stop();
 

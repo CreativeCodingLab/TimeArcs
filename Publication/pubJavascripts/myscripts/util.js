@@ -46,14 +46,14 @@ function drawTimeLegend() {
       .attr("x1", function(d){ return xx; })
       .attr("x2", function(d){ return xx; })
       .attr("y1", function(d){ return 0; })
-      .attr("y2", function(d){ return height/3; });
+      .attr("y2", function(d){ return height; });
      svg.append("text")
       .attr("class", "timeLegend")
       .style("fill", "#000")   
       .style("text-anchor","start")
       .style("text-shadow", "1px 1px 0 rgba(255, 255, 255, 0.6")
       .attr("x", xx)
-      .attr("y", height/3-5)
+      .attr("y", height-5)
       .attr("dy", ".21em")
       .attr("font-family", "sans-serif")
       .attr("font-size", "12px")

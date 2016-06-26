@@ -1,115 +1,180 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-.nodeText {
-  background: #91877b;
-  text-shadow: 0 11px 10 rgba(255, 255, 255, 1);
-}
 
-.node {
-    stroke: #fff;
-    stroke-width: 1px;
-    stroke-opacity: 0.6;
-}
-.link {
-    stroke: #555;
-    stroke-opacity: .9;
-}
-.linkArc {
-  fill: none;
-  stroke: #000;
-}
-
-.node text {
-  font: 9px helvetica;
-}
-
-<!-- For the slider -->
-.axis {
-  font: 5 sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-.axis .domain {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .25;
-  stroke-width: 5px;
-  stroke-linecap: round;
-}
-
-.axis .halo {
-  fill: none;
-  stroke: #ddd;
-  stroke-width: 3px;
-  stroke-linecap: round;
-}
-
-.slider .handle {
-  fill: #666;
-  stroke: #000;
-  stroke-opacity: .25;
-  stroke-width: 1px;
-  cursor: crosshair;
-}
-
-
-h3 {
-    color: #1ABC9C;
-    text-align:center;  
-    font-style: italic;
-    font-size: 14px;
-    font-family: "Helvetica";
-}
-
-/* tooltip */
-.d3-tip {
-  line-height: 1;
-  padding: 5px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 8px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-
-
-</style>
 <body>
-
-<label id="progUpdate">
-    <!-- Success Message -->
-</label>
-
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<!--<script src="javascripts/d3.v3.min.js"></script>  -->
-<script src="javascripts/fisheye.js"></script>
-
-<script src="myscripts/util.js"></script>
-<script src="myscripts/sliderRelationship.js"></script>
-<script src="myscripts/sliderRadius.js"></script>
-<script src="myscripts/streamGraph.js"></script>
-<script src="myscripts/main.js"></script>
+<script src="pubJavascripts/javascripts/fisheye.js"></script>
+<script src="pubJavascripts/myscripts/util.js"></script>
+<script src="pubJavascripts/myscripts/sliderRelationship.js"></script>
+<script src="pubJavascripts/myscripts/sliderRadius.js"></script>
+<script src="pubJavascripts/myscripts/streamGraph.js"></script>
+<script src="pubJavascripts/myscripts/main.js"></script>
 
 <script type='text/javascript' src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
-<link href="styles/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="pubJavascripts/styles/timeArcs.css" rel="stylesheet" type="text/css" />
+<link href="pubJavascripts/styles/jquery-ui.css" rel="stylesheet" type="text/css" />
 
-<script src="myscripts/searchBox.js"></script>
+
+
+<h3>IN SUBMISSION</h3>
+
+<li> <FONT COLOR="#982">Tuan Dang</FONT> and Angus Forbes. <i> BioLinker: Bottom-up exploration of protein interaction network</i>. The 6th Symposium on Biological Data Visualization, BioVis 2016. </li>
+<li><FONT COLOR="#982">Tuan Dang</FONT>, Paul Murray, Ronak Etemadpour, and Angus Forbes. <i> CactusTrees: Visualizing Structure and Connectivity in Complex Hierarchical Datasets</i>. IEEE Transactions on Visualization and Computer Graphics. </li>
+
+<h3>PAPERS</h3>
+<li><FONT COLOR="#e78ac3">W2:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Hong Cui, and Angus Forbes. <i> MultiLayerMatrix: Visualizing Large Taxonomic Datasets</i>. The seventh international EuroVis workshop on Visual Analytics, EuroVA 2016.  
+<a href="https://www.cs.uic.edu/~tdang/MultiLayerMatrix/MultiLayerMatrix_EuroVA_2016.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="MultiLayerMatrix/video.mp4"> <img src="img/movie.png" height="16"></a>
+<a href="https://github.com/CreativeCodingLab/MultiLayerMatrix"> <img src="img/github2.png" height="16"></a>
+  </li>
+  <div align="middle" > <img src="https://www.cs.uic.edu/~tdang/MultiLayerMatrix/TeaserWeb.png"  width="660" alt="MultiLayerMatrix" /></div>
+
+
+<li><FONT COLOR="#fc8d62">J5:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>,  Nick Pendar, and Angus Forbes. <i> TimeArcs: Visualizing Fluctuations in Dynamic Networks</i>. Computer Graphics Forum 35(3), EuroVis 2016, acceptance rate of 27%. 
+<a href="https://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/TimeArcs_Dang_EuroVis2016.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="https://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/TimeArcs_Dang_EuroVis2016.mp4"> <img src="img/movie.png" height="16"></a>
+<a href="https://github.com/CreativeCodingLab/TimeArcs"> <img src="img/github2.png" height="16"></a>
+<a href="BibTeX/Dang2016TimeArcs.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://diglib.eg.org/handle/10.1111/cgf12882" class="button">DOI</a>
+</li>
+  <div align="middle" > <img src="https://www.cs.uic.edu/~tdang/TimeArcs/EuroVis2016/TimeArcsWeb.png"  width="750" alt="TimeArcs" /></div>
+
+
+<li><FONT COLOR="#e78ac3">W1:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Nico Franz, Bertram Lud&#228;scher and Angus Forbes. <i> ProvenanceMatrix: A Visualization Tool for Multi-Taxonomy Alignments</i>. International Workshop on Visualizations and User Interfaces for Ontologies and Linked Data, VOILA 2015. 
+<a href="ProvenanceMatrix/ProvenanceMatrix_VOILA_2015.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="ProvenanceMatrix/video.mp4"> <img src="img/movie.png" height="16"></a>
+<a href="https://github.com/CreativeCodingLab/ProvenanceMatrix"> <img src="img/github2.png" height="16"></a>
+<a href="BibTeX/Dang2015ProvenanceMatrix.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://www.bibsonomy.org/bibtex/23a2e7eda5e8580c2bdfdefca6d152a0f/dblp" class="button">DOI</a>
+
+</li>
+<div  align="middle" > <img src="ProvenanceMatrix/ProvenanceMatrixWeb.png"  width="730" alt="ProvenanceMatrix" /></div>
+
+
+<li><FONT COLOR="#66c2a5">C10:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>,  Paul Murray, Jillian Aurisano, and Angus Forbes. <i> ReactionFlow: An Interactive Visualization Tool for Causality Analysis in Biological Pathways</i>. BMC Proceedings 9(6), BioVis 2015. 
+<a href="ReactionFlow/ReactionFlow_BioVis_2015.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="ReactionFlow/video.mp4"> <img src="img/movie.png" height="16"></a>
+<a href="https://github.com/CreativeCodingLab/ReactionFlow"> <img src="img/github2.png" height="16"></a>
+<a href="BibTeX/Dang2015ReactionFlow.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/26361502" class="button">DOI</a>
+</li>
+  <div  align="middle" > <img src="ReactionFlow/ReactionFlowWeb.png"  width="730" alt="ReactionFlow" /></div>
+
+<li><FONT COLOR="#66c2a5">C9:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>,  Paul Murray, and Angus Forbes. <i> PathwayMatrix: Visualizing Binary Relationships between Proteins in Biological Pathways</i>. BMC Proceedings 9(6), BioVis 2015. 
+<a href="PathwayMatrix/PathwayMatrix_BioVis_2015.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="PathwayMatrix/PathwayMatrixBioVis960x540.mp4"> <img src="img/movie.png" height="16"></a>
+<a href="https://github.com/CreativeCodingLab/PathwayMatrix"> <img src="img/github2.png" height="16"></a>
+<a href="BibTeX/Dang2015PathwayMatrix.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/26361499" class="button">DOI</a>
+</li>
+  <div  align="middle" > <img src="PathwayMatrix/PathwayMatrixWeb.png"  width="600" alt="PathwayMatrix" /></div>
+  
+<li><FONT COLOR="#66c2a5">C8:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> PixSearcher: Searching Similar Images in Large Image Collections through Pixel Descriptors</i>. Proceedings of the 10th International Symposium on Visual Computing, ISVC 2014. 
+<a href="file/PixSearcher.pdf"> <img src="img/pdf.png" height="16"></a>  
+<a href="BibTeX/Dang2014PixSearcher.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://link.springer.com/chapter/10.1007%2F978-3-319-14364-4_70" class="button">DOI</a>
+</li>
+<div  align="middle" > <img src="media/PixSearcher.png"  width="700" alt="PixSeaarcher" /></div>
+  
+
+<li> <FONT COLOR="#fc8d62">J4:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> Transforming Scagnostics to Reveal Hidden Features</i>. IEEE Transactions on Visualization and Computer Graphics 20(12), VAST 2014, acceptance rate of 23%.  
+<a href="file/ScagTransformer.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="media/ScagTransformerFull.mov"> <img src="img/movie.png" height="16"></a>
+<a href="BibTeX/Dang2014Transforming.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6875999" class="button">DOI</a>
+</li>
+ <div  align="middle" > <img src="media/ScagTransformer.png"  width="650" alt="ScagTransformer" /></div>
+  
+<li><FONT COLOR="#66c2a5">C7:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> ScagExplorer: Exploring Scatterplots by Their Scagnostics</i>. Proceedings of the 7th IEEE Pacific Visualization Symposium, PacificVis 2014, acceptance rate of 29%. 
+<a href="file/ScagExplorer.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="BibTeX/Dang2014ScagExplorer.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6787139" class="button">DOI</a>
+</li>
+ <div  align="middle" > <img src="media/ScagExplorer.png"  width="550" alt="ScagExplorer" /></div>
+  
+<li><FONT COLOR="#66c2a5">C6:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i>TimeExplorer: Similarity Search Time Series by Their Signatures</i>. Proceedings of the 9th International Symposium on Visual Computing, ISVC 2013.  
+<a href="file/TimeExplorer.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="BibTeX/Dang2013TimeExplorer.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://link.springer.com/chapter/10.1007%2F978-3-642-41914-0_28" class="button">DOI</a>
+  </li>
+ <div  align="middle" > <img src="media/TimeExplorer.png"  width="750" alt="TimeExplorer" /></div>
+
+<li><FONT COLOR="#66c2a5">C5:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i>Detecting interesting distributions in multiple time series data</i>. Proceedings of the 5th International Symposium on Visual Information Communication and Interaction, VINCI 2012. 
+<a href="file/TimeseerVINCIjournal.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="BibTeX/Dang2012Timeseer2.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://dl.acm.org/citation.cfm?id=2397703" class="button">DOI</a>
+<div  align="middle" > <img src="media/TimeSeer2.png"  width="800" alt="Timeseer2" /></div>
+   
+<li><FONT COLOR="#66c2a5">C4:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Anushka Anand, and Leland Wilkinson. <i>FmFinder: Search and Filter Your Favorite Songs</i>. Proceedings of the 8th International Symposium on Visual Computing, ISVC 2012. 
+<a href="file/FmFinder.pdf"> <img src="img/pdf.png" height="16"></a> 
+<a href="BibTeX/Dang2012FmFinder.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://link.springer.com/chapter/10.1007%2F978-3-642-33179-4_34" class="button">DOI</a>
+&nbsp; FmFinder is available on <a href="http://forums.macrumors.com/threads/free-fmfinder-music-discovery-and-recommendations-on-iphone-and-ipad.1483520/"> Apple Store </a>
+<a href="https://itunes.apple.com/us/app/fmfinder-music-discovery-recommendations/id569215761"> <img src="img/apple.jpg" height="16"></a> 
+</li>
+<div  align="middle" > 
+<a href="media/FmFinder.png"> <img src="media/FmFinder.png" height="200" alt="FmFinder"></a> 
+
+</div>
+
+<li> <FONT COLOR="#fc8d62">J3:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Anushka Anand, and Leland Wilkinson. <i>TimeSeer: Scagnostics for High-Dimensional Time Series</i>. IEEE Transactions on Visualization and Computer Graphics 19(3), TVCG 2012.  
+<a href="file/Multi-Scagnostics.pdf"> <img src="img/pdf.png" height="16"></a>  
+<a href="media/TimeSeer.mov"> <img src="img/movie.png" height="16"></a>
+<a href="BibTeX/Dang2012Timeseer.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6200267" class="button">DOI</a>
+</li>
+<div  align="middle" > <img src="media/TimeSeer.png"  width="840" alt="CHIRP" /></div>
+ 
+<li><FONT COLOR="#66c2a5">C3:</FONT> Anushka Anand, Leland Wilkinson, and <FONT COLOR="#982">Tuan Dang</FONT>. <i> Visual Pattern Discovery using Random Projections</i>. Proceedings of IEEE Conference on Visual Analytics Science and Technology, VAST 2012, acceptance rate of 28%. 
+<a href="file/SubspaceExplorer.pdf"> <img src="img/pdf.png" height="16"></a> 
+<a href="BibTeX/Anand2012SubspaceExplorer.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6400490" class="button">DOI</a>
+</li>
+    
+
+<li> <FONT COLOR="#fc8d62">J2:</FONT> Leland Wilkinson, Anushka Anand, and <FONT COLOR="#982">Tuan Dang</FONT>. <i>Substantial improvements in the set-covering projection classifier CHIRP</i>. Journal ACM Transactions on Knowledge Discovery from Data, TKDD 2012.  
+<a href="http://fodava.gatech.edu/sites/default/files/FODAVA-12-49.pdf"> <img src="img/pdf.png" height="16"></a>  
+<a href="BibTeX/Wilkinson2012CHIRP_TKDD.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://dl.acm.org/citation.cfm?id=2382583" class="button">DOI</a>
+</li>
+    
+<li> <FONT COLOR="#66c2a5">C2:</FONT> Leland Wilkinson, Anushka Anand, and <FONT COLOR="#982">Tuan Dang</FONT>. <i>CHIRP: A new classifier based on Composite Hypercubes on Iterated Random Projections</i>. Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, KDD 2011, acceptance rate of 17.5%.  
+<a href="file/CHIRP-KDD.pdf"> <img src="img/pdf.png" height="16"></a>
+<a href="BibTeX/Wilkinson2011CHIRP_KDD.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://dl.acm.org/citation.cfm?id=2020418" class="button">DOI</a>
+</li>
+  
+<li> <FONT COLOR="#fc8d62">J1:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Leland Wilkinson, and Anushka Anand. <i>Stacking Graphic Elements to Avoid Over-Plotting</i>. IEEE Transactions on Visualization AndComputer Graphics 16(6), InfoVis 2010, acceptance rate of 26%.  <a href="file/Stacking.pdf"> <img src="img/pdf.png" height="16"></a> <a href="https://www.cs.uic.edu/~tdang/media/Stacking.mp4"> <img src="img/movie.png" height="16"></a> <a href="BibTeX/Dang2010Stacking.txt"> <img src="img/bibtex.png" height="16"></a> 
+<a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=5613442" class="button">DOI</a>
+</li>
+    <div  align="middle" > <img src="media/lyme.png"  width="400" alt="Stacking dots" /></div>
+  
+<li> <FONT COLOR="#66c2a5">C1:</FONT> Anushka Anand, Leland Wilkinson, and <FONT COLOR="#982">Tuan Dang</FONT>. <i>An L-infinity Norm Visual Classier</i>. Proceedings of IEEE International Conference on Data Mining, ICDM 2009, acceptance rate of 17.8%. <a href="file/ICDM-visClassifier.pdf"> <img src="img/pdf.png" height="16"></a> <a href="BibTeX/Anand2009Linfinity.txt"> <img src="img/bibtex.png" height="16"></a> <a href="https://www.computer.org/csdl/proceedings/icdm/2009/3895/00/3895a687-abs.html" class="button">DOI</a> </li>
+  
+
+
+
+<h3>POSTERS</h3>
+
+<li> <FONT COLOR="#8da0cb">P6:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> Using Scagnostics to cluster huge datasets</i>. IEEE Visual Analytics in Science and Technology, VAST 2013. (Best Poster) 
+  <a href="file/ScagExplorerPosterVis.pdf"> <img src="img/pdf.png" height="16"></a></li>
+
+<li> <FONT COLOR="#8da0cb">P5:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> ScagExplorer: Exploring Scatterplots by Their Features</i>. The 6th IEEE Pacific Visualization Symposium, PacificVis 2013. 
+  <a href="file/pacificVisPoster2013.pdf"> <img src="img/pdf.png" height="16"></a></li>
+
+<li> <FONT COLOR="#8da0cb">P4:</FONT> <FONT COLOR="#982">Tuan Dang</FONT> and Leland Wilkinson. <i> Clustering Large Image Collections through Pixel Descriptors</i>. IEEE Symposium on Information Visualization, InfoVis 2012. 
+  <a href="file/infoVisPoster2012.pdf"> <img src="img/pdf.png" height="16"></a></li>
+
+<li> <FONT COLOR="#8da0cb">P3:</FONT> Anushka Anand, Leland Wilkinson, and <FONT COLOR="#982">Tuan Dang</FONT>. <i> Using Random Projections to Identify Class-Separating Variables</i>. IEEE Visual Analytics in Science and Technology, VAST 2011. (Best Poster) 
+  <a href="file/VAST2011-RPVis.pdf"> <img src="img/pdf.png" height="16"></a></li>
+
+<li> <FONT COLOR="#8da0cb">P2:</FONT> <FONT COLOR="#982">Tuan Dang</FONT>, Allan Berry, and Mike Stieff. <i> ConnChem: Computer-Based Modeling for teaching and learning Chemistry</i>. Gordon Research Conference: Visualization in Science & Education, GRC 2011. 
+  <a href="file/grcPoster2011.pages"> <img src="img/pdf.png" height="16"></a></li>
+
+<li> <FONT COLOR="#8da0cb">P1:</FONT> Anushka Anand, Leland Wilkinson, and <FONT COLOR="#982">Tuan Dang</FONT>. <i> CHIRP: A New Classifier based on Random Projections and Covering</i>. The 5th Annual Workshop for Women in Machine Learning, 2010. 
+  <a href="http://www.cs.uic.edu/~aanand/publications/CHIRP-PosterAA.pdf"> <img src="img/pdf.png" height="16"></a> </li> 
+
 </body>
