@@ -58,6 +58,8 @@ var node_drag = d3.behavior.drag()
 
     function dragmove(d, i) {
         d.px += d3.event.dx;
+        dsad
+
         d.py += d3.event.dy;
         d.x += d3.event.dx;
         d.y += d3.event.dy; 
@@ -76,7 +78,7 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 1955;
+var minYear = 1990;
 var maxYear = 2015;
 var numYear = (maxYear-minYear)+1;
 
@@ -134,9 +136,9 @@ var numberInputTerms =0;
 var listYear = [];
 
 //d3.tsv("data/pcCombined3.tsv", function(error, data_) {
-//d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
-d3.tsv("data/imdb1.tsv", function(error, data_) {
-//d3.tsv("data/imdb90_50.tsv", function(error, data_) {
+d3.tsv("data/VISpapers1990-2014.tsv", function(error, data_) {
+//d3.tsv("data/imdb1.tsv", function(error, data_) {
+//d3.tsv("data/imdb85_50.tsv", function(error, data_) {
 //d3.tsv("data/PopCha.tsv", function(error, data_) {
     if (error) throw error;
     data = data_;
@@ -223,7 +225,6 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
     });
 
     force.linkDistance(function(l) {
-        debugger;
         if (searchTerm!=""){
             if (l.source.name == searchTerm || l.target.name == searchTerm){
                 var order = isContainedInteger(listYear,l.m)
@@ -311,11 +312,12 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         }   
     }*/
 
+    
     force.nodes(nodes)
         .links(links)
         .start(100,150,200);
    // runForceLayouts();
-
+   
     force.on("tick", function () {
         update();
     });
@@ -323,10 +325,26 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
         detactTimeSeries();
     });
 
+    
     setupSliderScale(svg);
     drawColorLegend();
     drawTimeLegend();
   
+    
+
+  console.log("*********** saveTimeArcsData ******************");
+  var csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "CardId\tYear\tConference\tTitle\tEvidence\tAuthor Names\n"
+ 
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "aaaa.tsv");
+  link.click(); // This will download the data file named "my_data.csv".
+
+   console.log("*********** saveTimeArcsData2 ******************");
+  
+
 
     for (var i = 0; i < termArray.length; i++) {
         optArray.push(termArray[i].term);
@@ -337,6 +355,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             source: optArray
         });
     }); 
+
 });
 
     function recompute() {
@@ -377,13 +396,13 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
             var rating = parseFloat(d["Rating"]);
             var year = parseFloat(d["Year"]);
             var up = (year-minYear)/(maxYear-minYear);
-            if (rating>8.2){  //For IMDB ****************************************testing
+           // if (rating>8.2){  //For IMDB ****************************************testing
                 if (!searchTerm || searchTerm=="" ) {
                     return d;
                 }
                 else if (d[searchTerm])
                     return d;
-            }
+         //   }
         });
 
 
@@ -556,7 +575,7 @@ d3.tsv("data/imdb1.tsv", function(error, data_) {
            // }
         });   
       
-        numNode = Math.min(200, termArray.length);
+        numNode = Math.min(500, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){

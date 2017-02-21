@@ -6,7 +6,7 @@ var handle;
 var xScaleSlider;
 var xSlider = 3;
 var ySlider = 125;
-var valueSlider = 10;
+var valueSlider = 30;
 var valueMax = 30;
 function setupSliderScale(svg) {
   xScaleSlider = d3.scale.linear()

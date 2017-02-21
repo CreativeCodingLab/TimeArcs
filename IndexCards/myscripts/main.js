@@ -68,8 +68,8 @@ var node_drag = d3.behavior.drag()
 
 var data, data2;
 
-var minYear = 2002;
-var maxYear = 2015;
+var minYear = 2000;
+var maxYear = 2016;
 var numYear = (maxYear-minYear)+1;
 
 var sourceList = {};
@@ -659,7 +659,7 @@ node2.append("title")
             }
         });   
       
-        numNode = Math.min(250, termArray.length);
+        numNode = Math.min(1050, termArray.length);
         computeConnectivity(termArray, numNode);
         nodes = [];
         for (var i=0; i<numNode;i++){

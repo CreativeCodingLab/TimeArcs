@@ -28,7 +28,7 @@ var force = d3.layout.force()
 
  var force2 = d3.layout.force()
     .charge(-180)
-    .linkDistance(70)
+    .linkDistance(80)
     .gravity(0.15)
     .alpha(0.1)
     .size([width, height]);     
@@ -96,7 +96,7 @@ var isLensing = false;
 var lensingMul = 5;
 var lMonth = -lensingMul*2;
 var coordinate = [0,0];
-var XGAP_ = 8; // gap between months on xAxis
+var XGAP_ = 9; // gap between months on xAxis
 
 function xScale(m){
     if (isLensing){
@@ -140,7 +140,8 @@ var listMonth;
 var nodes2List = {};
 var links2List = {};
 
-d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
+//d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
+d3.tsv("data/huffington.tsv", function(error, data_) {
 //d3.tsv("data/wikinews.tsv", function(error, data_) {
       if (error) throw error;
     data = data_;
@@ -265,8 +266,8 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             }
         }
         
-        
     });
+
     console.log("DONE reading the input file = "+data.length); 
 
     setupSliderScale(svg);
@@ -475,15 +476,16 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         }
 
         var removeList = {};   // remove list **************
-        removeList["russia"] =1;
-        removeList["china"] =1;
+       // removeList["russia"] =1;
+       // removeList["china"] =1;
         
         removeList["barack obama"] =1;
         removeList["john mccain"] =1;
         removeList["mitt romney"] =1;
-        removeList["hillary clinton"] =1; 
-        removeList["paul ryan"] =1;
+      //  removeList["hillary clinton"] =1; 
+      //  removeList["paul ryan"] =1;
         removeList["sarah palin"] =1;
+        removeList["israel"] =1;
         
         
         removeList["source"] =1;
@@ -556,8 +558,8 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
        console.log("numberInputTerms="+numberInputTerms) ; 
  
     // Compute relationship **********************************************************
-        numNode = Math.min(100, termArray.length);
-        numNode2 = Math.min(numNode*5, termArray.length);
+        numNode = Math.min(80, termArray.length);
+        numNode2 = Math.min(numNode*3, termArray.length);
         var selectedTerms = {};
         for (var i=0; i<numNode2;i++){
            selectedTerms[termArray[i].term] = termArray[i].max;
@@ -597,6 +599,8 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
                 }
             }
         });
+        debugger;
+
         console.log("DONE computing realtionships relationshipMaxMax="+relationshipMaxMax);
     }
      
@@ -872,13 +876,13 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
         }
         
        // var linear = (150+numNode)/200;
-        var hhh = Math.min(height/numNode,15);
+        var hhh = Math.min(height/numNode,20);
         
         yScale = d3.scale.linear()
-            .range([0, hhh])
+            .range([0, hhh*1.25])
             .domain([0, termMaxMax2]);
         linkScale = d3.scale.linear()
-            .range([0.25, 1.5])
+            .range([0.5, 2])
             .domain([Math.round(valueSlider)-0.4, Math.max(relationshipMaxMax2,10)]);  
 
         links.forEach(function(l) { 
@@ -927,7 +931,7 @@ d3.tsv("data/corpus_ner_geo.tsv", function(error, data_) {
             .style("font-weight", function(d) { return d.isSearchTerm ? "bold" : ""; })
             .attr("dy", ".21em")
             .attr("font-family", "sans-serif")
-            .attr("font-size", function(d) { return d.isSearchTerm ? "11px" : "10px"; })
+            .attr("font-size", function(d) { return d.isSearchTerm ? "12px" : "11px"; })
             .text(function(d) { return d.name });  
         nodeG.on('mouseover', mouseovered)
                .on("mouseout", mouseouted); 
